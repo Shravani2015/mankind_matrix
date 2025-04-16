@@ -26,7 +26,7 @@ const App = () => {
         <ProductGrid searchQuery={searchQuery} category={selectedCategory} />
       </div>
       
-        <button onClick={() => setShowLogin(true)}>Login</button>
+        <button onClick={() => setShowLogin(true)}>Login</button> {/*  to be removed, Only for testing purposes */}
         </>
       ) : (
         <LoginForm onLogin={() => {}} />
