@@ -5,6 +5,7 @@ const LoginForm = ({ onLogin }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errors, setErrors] = useState({});
+  const [success, setSuccess] = useState({});
 
   const validate = () => {
     const newErrors = {};
@@ -26,10 +27,12 @@ const LoginForm = ({ onLogin }) => {
     }
 
     
-    const validEmail = 'user@example.com';
-    const validPassword = 'password123';
+    const validEmail = 'user@example.com'; // to be removed, Only for testing purposes
+    const validPassword = 'password123'; // to be removed, Only for testing purposes
 
     if (email === validEmail && password === validPassword) {
+      setSuccess({msg:'Successful Login!'});
+      setErrors({});
       onLogin(); 
     } else {
       setErrors({ auth: 'Invalid email or password' });
@@ -42,6 +45,7 @@ const LoginForm = ({ onLogin }) => {
       <h2>Login</h2>
       </div>
       {errors.auth && <p className="error">{errors.auth}</p>}
+      {success.msg && <p className='success'>{success.msg}</p>}
       <div>
         <label>Email</label>
         <input type="text" value={email} onChange={e => setEmail(e.target.value)} />
