@@ -1,0 +1,45 @@
+.login-form {
+    width: 300px;
+    margin: 50px auto;
+    padding: 1rem;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    padding: 1rem;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+  }
+  
+  .login-form .actions button {
+    padding: 0.5rem 1rem;
+    background-color: #101820;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.2s ease;
+  }
+
+  .login-form h2 {
+    text-align: center;
+  }
+  
+  .login-form div {
+    margin-bottom: 12px;
+  }
+  
+  .login-form label {
+    display: block;
+    font-weight: bold;
+  }
+  
+  .login-form input {
+    width: 100%;
+    padding: 6px;
+    box-sizing: border-box;
+  }
+  
+  .error {
+    color: red;
+    font-size: 0.85rem;
+  }
+  
