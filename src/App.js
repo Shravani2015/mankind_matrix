@@ -1,11 +1,12 @@
 // src/App.js
 import React, { useState } from 'react';
-import Header from './components/Header';
-import Navigation from './components/Navigation';
-import SidebarFilters from './components/SidebarFilters';
-import ProductGrid from './components/ProductGrid';
-import FeaturedCarousel from './components/FeaturedCarousel';
-import './App.css'; 
+import Header from './layouts/Header';
+import Navigation from './layouts/Navigation';
+import SidebarFilters from './layouts/SidebarFilters';
+import ProductGrid from './features/products/ProductGrid';
+import FeaturedCarousel from './layouts/FeaturedCarousel';
+import './styles/global.css'; 
+import './styles/variables.css';
 
 const App = () => {
   const [searchQuery, setSearchQuery] = useState('');
