@@ -1,0 +1,123 @@
+.highlighted-products-container {
+  margin: 2rem auto;
+  width: 94%;
+  max-width: 1600px;
+  position: relative;
+  padding: 0 0 2rem;
+}
+
+.carousel-item {
+  padding: 0 0.5rem;
+  outline: none;
+}
+
+/* Navigation container positioned below slider */
+.navigation-container {
+  position: relative;
+  width: 100%;
+  margin-top: 0.5rem;
+  text-align: center;
+}
+
+.arrows-container {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 0.75rem;
+}
+
+.custom-arrow {
+  width: 36px;
+  height: 36px;
+  background-color: rgba(0, 0, 0, 0.8);
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  color: white;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  z-index: 2;
+}
+
+.custom-arrow:hover {
+  background-color: #000;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* Custom dots */
+.custom-dots-container {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  padding-top: 0.25rem;
+}
+
+.custom-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #ccc;
+  transition: all 0.3s ease;
+}
+
+.slick-active .custom-dot {
+  background-color: #101820;
+  transform: scale(1.3);
+}
+
+/* Override slick default styles to hide the default arrows */
+.slick-prev, 
+.slick-next {
+  display: none !important;
+}
+
+.slick-slider {
+  margin-bottom: 0;
+}
+
+.slick-dots {
+  bottom: -25px;
+}
+
+/* Responsive styles */
+@media (max-width: 1400px) {
+  .highlighted-products-container {
+    width: 95%;
+  }
+}
+
+@media (max-width: 768px) {
+  .highlighted-products-container {
+    width: 96%;
+    margin: 1.5rem auto;
+  }
+  
+  .custom-arrow {
+    width: 32px;
+    height: 32px;
+  }
+}
+
+@media (max-width: 480px) {
+  .highlighted-products-container {
+    width: 98%;
+    padding: 0 0 2rem;
+  }
+  
+  .custom-arrow {
+    width: 28px;
+    height: 28px;
+  }
+  
+  .arrows-container {
+    gap: 0.5rem;
+  }
+  
+  .custom-dot {
+    width: 6px;
+    height: 6px;
+  }
+}
