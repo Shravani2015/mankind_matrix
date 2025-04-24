@@ -1,10 +1,9 @@
 // src/App.js
 import React, { useState } from 'react';
 import Header from './layouts/Header';
-import Navigation from './layouts/Navigation';
+import Footer from './layouts/Footer';
 import SidebarFilters from './layouts/SidebarFilters';
 import ProductGrid from './features/products/ProductGrid';
-// import FeaturedCarousel from './layouts/FeaturedCarousel';
 import HighlightedProductsCarousel from './layouts/HighlightedProductsCarousel';
 import './styles/global.css'; 
 import './styles/variables.css';
@@ -15,14 +14,13 @@ const App = () => {
 
   return (
     <div>
-      <Header />
-      {/* <FeaturedCarousel /> */}
-      <Navigation onSearch={setSearchQuery} />
+      <Header onSearch={setSearchQuery}/>
       <HighlightedProductsCarousel />
       <div className="main-content">
         <SidebarFilters onFilterChange={setSelectedCategory} />
         <ProductGrid searchQuery={searchQuery} category={selectedCategory} />
       </div>
+      <Footer />
     </div>
   );
 };

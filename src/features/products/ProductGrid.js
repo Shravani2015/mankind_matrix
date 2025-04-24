@@ -1,10 +1,12 @@
-// src/components/ProductGrid.js
 import React, { useState, useEffect } from 'react';
 import ProductCard from './ProductCard';
+import Pagination from './Pagination';
 
 const ProductGrid = ({ searchQuery, category }) => {
   const [products, setProducts] = useState([]);
   const [filtered, setFiltered] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const productsPerPage = 10;
 
   // Hardcoded dummy product data for testing
   const dummyProducts = [
@@ -181,34 +183,40 @@ const ProductGrid = ({ searchQuery, category }) => {
     }
   ];
   
-
   useEffect(() => {
-    // Set dummy products as if they were fetched from an API
     setProducts(dummyProducts);
     setFiltered(dummyProducts);
   }, []);
 
   useEffect(() => {
     let result = products;
-
-    if (category) {
-      result = result.filter(p => p.category === category);
-    }
-
-    if (searchQuery) {
-      result = result.filter(p =>
-        p.name.toLowerCase().includes(searchQuery.toLowerCase())
-      );
-    }
-
+    if (category) result = result.filter(p => p.category === category);
+    if (searchQuery) result = result.filter(p =>
+      p.name.toLowerCase().includes(searchQuery.toLowerCase())
+    );
     setFiltered(result);
+    setCurrentPage(1); // Reset to first page when filtering/searching
   }, [searchQuery, category, products]);
 
+  // Pagination logic
+  const indexOfLastProduct = currentPage * productsPerPage;
+  const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
+  const currentProducts = filtered.slice(indexOfFirstProduct, indexOfLastProduct);
+  const totalPages = Math.ceil(filtered.length / productsPerPage);
+
   return (
-    <div className="product-grid">
-      {filtered.map(product => (
-        <ProductCard key={product.id} product={product} />
-      ))}
+    <div>
+      <div className="product-grid grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+        {currentProducts.map(product => (
+          <ProductCard key={product.id} product={product} />
+        ))}
+      </div>
+      
+      <Pagination
+        currentPage={currentPage}
+        totalPages={totalPages}
+        onPageChange={setCurrentPage}
+      />
     </div>
   );
 };
