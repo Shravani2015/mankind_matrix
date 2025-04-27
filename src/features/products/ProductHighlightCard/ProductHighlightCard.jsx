@@ -2,13 +2,8 @@ import React from 'react';
 import './ProductHighlightCard.css';
 
 const ProductHighlightCard = ({ product }) => {
-  const { name, category, price, imageUrl, color } = product;
+  const { name, category, price, imageUrl } = product;
   
-  // Default color if none provided
-  const cardStyle = {
-    backgroundColor: color || '#f5f5f5',
-  };
-
   // Ensure consistent text lengths
   const truncateText = (text, maxLength) => {
     if (!text) return '';
@@ -16,13 +11,13 @@ const ProductHighlightCard = ({ product }) => {
   };
   
   return (
-    <div className="product-highlight-card" style={cardStyle}>
+    <div className="product-highlight-card">
       <div className="card-image-container">
         <img src={imageUrl} alt={name} className="card-image" />
       </div>
       <div className="card-content">
         <div className="card-info">
-          <h2 className="card-name">{truncateText(name, 18)}</h2>
+          <h3 className="card-name">{truncateText(name, 25)}</h3>
           <div className="card-category">{truncateText(category, 25)}</div>
           <div className="card-price">{price}</div>
         </div>

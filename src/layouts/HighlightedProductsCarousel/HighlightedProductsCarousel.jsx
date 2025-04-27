@@ -43,7 +43,6 @@ const HighlightedProductsCarousel = () => {
       category: "SINGLE BOARD COMPUTERS",
       price: "$45.99",
       imageUrl: "https://ar.mouser.com/images/marketingid/2017/img/174924105_Microchip_EthernetofEverything.png?v=041124.0458",
-      color: "#f78b8b" // Pink color
     },
     {
       id: 2,
@@ -51,7 +50,6 @@ const HighlightedProductsCarousel = () => {
       category: "MICROCONTROLLERS",
       price: "$23.50",
       imageUrl: "https://ar.mouser.com/images/marketingid/2017/img/174924105_Microchip_EthernetofEverything.png?v=041124.0458",
-      color: "#79d2d2" // Turquoise color
     },
     {
       id: 3,
@@ -59,7 +57,6 @@ const HighlightedProductsCarousel = () => {
       category: "EDGE AI COMPUTING",
       price: "$99.99",
       imageUrl: "https://ar.mouser.com/images/marketingid/2017/img/174924105_Microchip_EthernetofEverything.png?v=041124.0458",
-      color: "#ffffff" // White color
     },
     {
       id: 4,
@@ -67,7 +64,6 @@ const HighlightedProductsCarousel = () => {
       category: "IOT DEVELOPMENT",
       price: "$12.95",
       imageUrl: "https://ar.mouser.com/images/marketingid/2017/img/174924105_Microchip_EthernetofEverything.png?v=041124.0458",
-      color: "#ffffff" // White color
     },
     {
       id: 5,
@@ -75,7 +71,6 @@ const HighlightedProductsCarousel = () => {
       category: "MICROCONTROLLERS",
       price: "$29.95",
       imageUrl: "https://ar.mouser.com/images/marketingid/2017/img/174924105_Microchip_EthernetofEverything.png?v=041124.0458",
-      color: "#5ba3c7" // Blue color
     },
     {
       id: 6,
@@ -83,7 +78,6 @@ const HighlightedProductsCarousel = () => {
       category: "EMBEDDED SYSTEMS",
       price: "$34.50",
       imageUrl: "https://ar.mouser.com/images/marketingid/2017/img/174924105_Microchip_EthernetofEverything.png?v=041124.0458",
-      color: "#2f5a6a" // Dark teal color
     },
     {
       id: 7,
@@ -91,7 +85,6 @@ const HighlightedProductsCarousel = () => {
       category: "MICROCONTROLLERS",
       price: "$19.99",
       imageUrl: "https://ar.mouser.com/images/marketingid/2017/img/174924105_Microchip_EthernetofEverything.png?v=041124.0458",
-      color: "#9ed2a6" // Mint green color
     },
     {
       id: 8,
@@ -99,7 +92,6 @@ const HighlightedProductsCarousel = () => {
       category: "SINGLE BOARD COMPUTERS",
       price: "$59.95",
       imageUrl: "https://ar.mouser.com/images/marketingid/2017/img/174924105_Microchip_EthernetofEverything.png?v=041124.0458",
-      color: "#d1b280" // Gold/beige color
     }
   ];
 
@@ -108,8 +100,8 @@ const HighlightedProductsCarousel = () => {
     dots: true,
     infinite: true,
     speed: 500,
-    slidesToShow: 5,
-    slidesToScroll: 5,
+    slidesToShow: 6,
+    slidesToScroll: 6,
     initialSlide: 0,
     autoplay: false,
     autoplaySpeed: 5000,

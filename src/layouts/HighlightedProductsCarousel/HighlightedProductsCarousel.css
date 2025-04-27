@@ -1,13 +1,13 @@
 .highlighted-products-container {
-  margin: 2rem auto;
-  width: 94%;
+  margin: 0.5rem auto;
+  width: 98%;
   max-width: 1600px;
   position: relative;
   padding: 0 0 2rem;
 }
 
 .carousel-item {
-  padding: 0 0.5rem;
+  padding: 0 0.25rem;
   outline: none;
 }
 
@@ -85,13 +85,13 @@
 /* Responsive styles */
 @media (max-width: 1400px) {
   .highlighted-products-container {
-    width: 95%;
+    width: 98%;
   }
 }
 
 @media (max-width: 768px) {
   .highlighted-products-container {
-    width: 96%;
+    width: 98%;
     margin: 1.5rem auto;
   }
   

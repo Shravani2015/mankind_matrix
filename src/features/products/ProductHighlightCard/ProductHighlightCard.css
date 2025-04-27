@@ -1,14 +1,16 @@
 .product-highlight-card {
   display: flex;
   flex-direction: column;
-  border-radius: 8px;
+  border-radius: 10px;
   margin: 0.5rem;
   height: 330px;
   transition: all 0.3s ease-in-out;
   color: #333;
   position: relative;
   overflow: hidden;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .product-highlight-card:hover {
@@ -26,7 +28,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 1.5rem;
+  padding: 0.5rem;
 }
 
 .card-image {
@@ -43,7 +45,7 @@
 .card-content {
   display: flex;
   flex-direction: column;
-  padding: 1.2rem;
+  padding: 0.5rem;
   justify-content: space-between;
   height: 160px;
 }
@@ -56,10 +58,10 @@
 }
 
 .card-name {
-  font-size: 1.3rem;
+  font-size: 1.2rem;
   font-weight: 700;
-  margin-bottom: 0.5rem;
-  text-transform: uppercase;
+  margin-bottom: 0.5rem 0;
+  text-transform: capitalize;
   line-height: 1.2;
   height: 1.6rem;
   overflow: hidden;
@@ -103,8 +105,8 @@
     height: 160px;
   }
   
-  .card-title {
-    font-size: 1.2rem;
+  .card-name {
+    font-size: 1.1rem;
   }
   
   .card-content {
@@ -126,8 +128,8 @@
     height: 160px;
   }
   
-  .card-title {
-    font-size: 1.1rem;
+  .card-name {
+    font-size: 1rem;
   }
 }
 
@@ -144,7 +146,7 @@
     height: 160px;
   }
   
-  .card-title {
+  .card-name {
     font-size: 1rem;
   }
   
