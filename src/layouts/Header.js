@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router';
 
 function Header({ onSearch }) {
   return (
@@ -7,7 +8,7 @@ function Header({ onSearch }) {
 
       <div className="header-right">
         <nav className="nav-links">
-          <a href="#products">Products</a>
+          <Link to='/products'>Products</Link>
           <a href="#blog">Blog</a>
           <a href="#about">About</a>
           <a href="#contact">Contact</a>
