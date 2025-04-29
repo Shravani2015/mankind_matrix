@@ -1,0 +1,261 @@
+import React, { useState, useEffect, useRef } from 'react';
+// Removed: react-redux, firebase imports
+
+function Profile() {
+  // Removed: useSelector, useDispatch
+  // Removed: Redux state variables (currentUser, loading, error)
+  // Removed: Firebase instances (auth, storage, db)
+
+  // --- Local State Management ---
+
+  // State for form data - Initialize with placeholder/dummy data
+  const [formData, setFormData] = useState({
+    username: 'DefaultUser', // Placeholder
+    email: 'user@example.com', // Placeholder - Assume email is fetched somehow initially
+    photoURL: 'https://via.placeholder.com/150?text=Avatar', // Placeholder avatar
+    // Add other fields if needed, e.g., bio: ''
+  });
+
+  // State for file upload simulation
+  const [imageFile, setImageFile] = useState(null);      // The selected file object
+  const [imageFileUrl, setImageFileUrl] = useState(formData.photoURL); // URL for preview
+  const [uploadProgress, setUploadProgress] = useState(null); // Simulated progress
+  const [uploadError, setUploadError] = useState(null);       // Simulated error
+  const [isUploading, setIsUploading] = useState(false);      // Simulated upload status
+  const [updateSuccess, setUpdateSuccess] = useState(false);  // Simple flag for success message
+
+  // Ref for the hidden file input
+  const filePickerRef = useRef(null);
+
+  // --- Effects ---
+
+  // Effect to handle file "upload" simulation when imageFile state changes
+  useEffect(() => {
+    if (imageFile) {
+      // Simulate the upload process
+      handleSimulatedFileUpload(imageFile);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [imageFile]); // Run only when imageFile changes
+
+  // Effect to set the initial image preview URL based on initial formData
+  useEffect(() => {
+    setImageFileUrl(formData.photoURL);
+  }, [formData.photoURL]);
+
+
+  // --- Event Handlers ---
+
+  // Generic change handler for form inputs (e.g., username)
+  const handleChange = (e) => {
+    setUpdateSuccess(false); // Clear success message on new change
+    setFormData({
+      ...formData,
+      [e.target.id]: e.target.value,
+    });
+  };
+
+  // Handle file selection from the hidden input
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+        setUpdateSuccess(false); // Clear success message
+        setUploadError(null); // Clear previous errors
+        setImageFile(file);
+        // Create a temporary local URL for immediate preview
+        const previewUrl = URL.createObjectURL(file);
+        setImageFileUrl(previewUrl); // Show preview immediately
+        // Note: You might want to revoke this URL later using URL.revokeObjectURL(previewUrl)
+        //       when the component unmounts or when a new image is selected/uploaded
+        //       to free up memory, but for simplicity, it's omitted here.
+    }
+  };
+
+  // Simulate the file upload process
+  const handleSimulatedFileUpload = (file) => {
+    if (!file) return;
+
+    console.log(`Simulating upload for: ${file.name}`);
+    setIsUploading(true);
+    setUploadError(null);
+    setUploadProgress(0);
+
+    // Simulate progress
+    let progress = 0;
+    const interval = setInterval(() => {
+      progress += 20;
+      setUploadProgress(progress);
+      if (progress >= 100) {
+        clearInterval(interval);
+        console.log('Simulated upload complete.');
+        // Assume success, generate a fake URL or just use the preview URL
+        const fakeDownloadURL = imageFileUrl; // Use the blob URL as the "uploaded" URL for this simulation
+        setFormData({ ...formData, photoURL: fakeDownloadURL }); // Update form data with the new "URL"
+        setIsUploading(false);
+        setUploadProgress(null); // Clear progress
+        // Don't clear imageFile here, user might want to submit the form with this change
+      }
+    }, 200); // Simulate upload taking 1 second
+
+    // --- Placeholder for actual Firebase/Backend upload ---
+    // const storageRef = ref(storage, `avatars/${fileName}`);
+    // const uploadTask = uploadBytesResumable(storageRef, file);
+    // uploadTask.on( 'state_changed', (snapshot) => {...}, (error) => {...}, () => { getDownloadURL... });
+    // --- End Placeholder ---
+  };
+
+
+  // Handle form submission (Profile Update Simulation)
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setUpdateSuccess(false); // Reset success message
+
+    console.log("--- Simulating Profile Update ---");
+    console.log("Current Form Data:", formData);
+    console.log("Selected Image File:", imageFile ? imageFile.name : 'None');
+
+    // --- Placeholder for Redux/API call ---
+    // dispatch(updateUserStart());
+    // try {
+    //    await updateProfile(auth.currentUser, { ... });
+    //    await updateDoc(userDocRef, { ... });
+    //    dispatch(updateUserSuccess(updatedUser));
+    // } catch (err) {
+    //    dispatch(updateUserFailure(err.message));
+    // }
+    // --- End Placeholder ---
+
+    // Simulate API call delay
+    setIsUploading(true); // Use isUploading state to disable button during "save"
+    await new Promise(resolve => setTimeout(resolve, 1000)); // Wait 1 second
+
+    // Simulate Success
+    console.log("--- Profile Update Simulated Successfully ---");
+    setIsUploading(false); // Re-enable button
+    setUpdateSuccess(true); // Show success message
+    setImageFile(null); // Clear the file state after successful "save"
+
+    // Simulate Failure (Example - uncomment to test error display)
+    // console.error("--- Profile Update Simulated Failure ---");
+    // setUploadError("Failed to update profile (Simulated Error).");
+    // setIsUploading(false);
+  };
+
+  // Handle Sign Out Simulation
+  const handleSignOut = () => {
+    console.log("--- Simulating Sign Out ---");
+    // --- Placeholder for Redux/Firebase call ---
+    // dispatch(signOutUserStart());
+    // await signOut(auth);
+    // dispatch(signOutUserSuccess());
+    // --- End Placeholder ---
+    alert("Simulating Sign Out! You would be redirected.");
+    // In a real app, you'd likely redirect the user or update global state.
+  };
+
+  // Handle Delete Account Simulation
+  const handleDeleteAccount = () => {
+    if (!window.confirm("Are you SURE you want to delete your account? This action cannot be undone. (Simulation)")) {
+        return;
+    }
+    console.log("--- Simulating Account Deletion ---");
+    // --- Placeholder for Redux/Firebase call ---
+    // dispatch(deleteUserStart());
+    // await deleteUser(auth.currentUser); // Needs re-auth!
+    // // Delete Firestore/Storage data...
+    // dispatch(deleteUserSuccess());
+    // --- End Placeholder ---
+    alert("Simulating Account Deletion! You would be logged out and redirected.");
+    // In a real app, handle deletion and redirection.
+  };
+
+  // Determine if the update button should be enabled (basic check)
+  // In this simulation, allow update if not currently "uploading"/"saving"
+  const canUpdate = !isUploading;
+
+
+  // --- JSX Rendering ---
+  return (
+    <div className="p-3 max-w-lg mx-auto"> {/* Container */}
+      <h1 className="text-3xl font-semibold text-center my-7 text-slate-100">Profile</h1>
+
+      {/* Simulated Error message display */}
+      {uploadError && <p className="text-red-500 mt-5 text-center">{uploadError}</p>}
+      {/* Simulated Success message display */}
+      {updateSuccess && <p className="text-green-500 mt-5 text-center">Profile updated successfully! (Simulated)</p>}
+
+
+      <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+        {/* Hidden file input */}
+        <input
+          type="file"
+          ref={filePickerRef}
+          hidden
+          accept="image/*"
+          onChange={handleFileChange}
+        />
+
+        {/* Profile picture - clickable */}
+        <img
+          src={imageFileUrl || 'https://via.placeholder.com/150?text=No+Image'} // Use preview URL or placeholder
+          alt="Profile Avatar"
+          onClick={() => !isUploading && filePickerRef.current.click()} // Trigger file input click (disable during upload)
+          className={`rounded-full h-24 w-24 object-cover self-center mt-2 border-2 border-slate-400 transition-colors ${isUploading ? 'cursor-not-allowed opacity-60' : 'cursor-pointer hover:border-slate-200'}`}
+          title={isUploading ? "Uploading..." : "Click to upload a new image"}
+        />
+
+        {/* Display upload progress/status */}
+        {isUploading && uploadProgress !== null && (
+          <p className='text-sm self-center text-slate-300'>
+            {`Uploading: ${uploadProgress}%`}
+          </p>
+        )}
+
+
+        {/* Email input (disabled placeholder) */}
+        <input
+          type="email"
+          id="email"
+          placeholder="Email"
+          className="border p-3 rounded-lg bg-slate-600 text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-slate-500 cursor-not-allowed"
+          value={formData.email}
+          disabled
+        />
+
+        {/* Username input */}
+        <input
+          type="text"
+          id="username"
+          placeholder="Username"
+          className="border p-3 rounded-lg bg-slate-700 text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-slate-500"
+          value={formData.username}
+          onChange={handleChange}
+          required
+        />
+
+        {/* Update button */}
+        <button
+          type="submit"
+          disabled={!canUpdate} // Disable if "uploading" or meets other criteria you set
+          className="bg-slate-700 text-white rounded-lg p-3 uppercase hover:opacity-95 disabled:opacity-80 disabled:cursor-not-allowed transition-opacity"
+        >
+          {isUploading ? 'Saving...' : 'Update Profile'}
+        </button>
+
+      </form>
+
+      {/* Other Actions */}
+      <div className="flex justify-between mt-5">
+        <span onClick={handleDeleteAccount} className="text-red-500 cursor-pointer hover:underline">
+          Delete Account (Simulated)
+        </span>
+        <span onClick={handleSignOut} className="text-red-500 cursor-pointer hover:underline">
+          Sign Out (Simulated)
+        </span>
+      </div>
+
+    </div>
+  );
+}
+
+export default Profile;

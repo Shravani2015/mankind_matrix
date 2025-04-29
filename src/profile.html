@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <link rel="stylesheet" href="profile.css">
+</head>
+<body>
+
+    <div class="profile-container">
+        <h1>Profile</h1>
+
+        <!-- Placeholder for dynamic messages -->
+        <p class="message error-message" id="errorMessage"></p>
+        <p class="message success-message" id="successMessage"></p>
+
+        <form id="profileForm" class="profile-form">
+            <!-- Hidden file input -->
+            <input
+                type="file"
+                id="avatarInput"
+                accept="image/*"
+                hidden
+            />
+
+            <!-- Profile picture - make it clickable -->
+            <img
+                src="https://via.placeholder.com/150?text=Avatar" /* Placeholder image */
+                alt="Profile Avatar"
+                id="avatarPreview"
+                class="avatar-image"
+                title="Click to upload a new image"
+            />
+
+            <!-- Display upload progress/status -->
+            <p class="upload-status" id="uploadStatus"></p>
+
+
+            <!-- Email input (disabled) -->
+            <label for="email" class="input-label">Email</label>
+            <input
+                type="email"
+                id="email"
+                placeholder="Email"
+                class="input-field"
+                value="user@example.com" /* Placeholder value */
+                disabled
+            />
+
+            <!-- Username input -->
+            <label for="username" class="input-label">Username</label>
+            <input
+                type="text"
+                id="username"
+                placeholder="Username"
+                class="input-field"
+                value="DefaultUser" /* Placeholder value */
+                required
+            />
+
+            <!-- Update button -->
+            <button type="submit" id="updateButton" class="button update-button">
+                Update Profile
+            </button>
+        </form>
+
+        <!-- Other Actions -->
+        <div class="profile-actions">
+            <span id="deleteAccount" class="action-link delete-link">Delete Account</span>
+            <span id="signOut" class="action-link signout-link">Sign Out</span>
+        </div>
+
+    </div>
+
+    <!-- Add your JavaScript file here for interactions -->
+    <!-- <script src="profile.js"></script> -->
+
+</body>
+</html>
