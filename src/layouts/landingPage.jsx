@@ -14,8 +14,10 @@ const LandingPage = () => {
       <Header onSearch={setSearchQuery}/>
       <HighlightedProductsCarousel />
       <div className="main-content">
-        <SidebarFilters onFilterChange={setSelectedCategory} />
-        <ProductGrid searchQuery={searchQuery} category={selectedCategory} />
+        <div className="filters-and-grid">
+          <SidebarFilters onFilterChange={setSelectedCategory} />
+          <ProductGrid searchQuery={searchQuery} category={selectedCategory} />
+        </div>
       </div>
       <Footer />
     </div>
