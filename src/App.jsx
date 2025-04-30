@@ -6,10 +6,7 @@ import About from './pages/About';
 import SignIn from './pages/SignIn';
 import SignUp from './pages/SignUp';
 import Profile from './pages/Profile';
-// Import any other pages you might have, e.g.:
-// import CreateListing from './pages/CreateListing';
-// import Listing from './pages/Listing';
-// import Search from './pages/Search';
+
 
 // Import Common Components
 import Header from './components/Header';
