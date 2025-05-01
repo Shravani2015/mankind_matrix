@@ -1,0 +1,192 @@
+/* manage-addresses.css */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    background-color: #f4f4f4;
+}
+.manage-addresses-container {
+    display: flex; /* Places AccountNavigation and content side-by-side */
+    gap: 250px; /* Space between navigation and content */
+    padding: 20px; /* Padding around the entire addresses section */
+    max-width: 1200px; /* Optional: constrain width */
+    margin-left: 0;
+    font-family: sans-serif; /* Basic font */
+  }
+/* --- Header and General Styles (Keep as is) --- */
+
+.header {
+    background-color: #232f3e; /* Match header background of html1 */
+    color: white; /* Match header text color of html1 */
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%; /* Full width header */
+}
+/* --- Container for Address Section --- */
+#address-root {
+    max-width: 600px;
+    margin: 20px auto;
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+#address-root h2,
+#address-root h3 {
+    color: #333;
+    margin-top: 0;
+    margin-bottom: 20px;
+    text-align: center;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+}
+
+
+/* ----- START: UPDATED FORM STYLES ----- */
+
+/* The form container */
+#address-form-container {
+    /* margin-top: 20px; */ /* REMOVED this line to fix positioning */
+}
+
+/* The form element itself - Apply Grid here */
+#address-form {
+    display: grid;
+    grid-template-columns: auto 1fr; /* Label column sized to content, Input takes rest */
+    gap: 12px 10px; /* Vertical(row) gap, Horizontal(column) gap */
+    align-items: center; /* Vertically center label and input in their row */
+    width: 400px; /* Set a fixed width for the form */
+}
+
+#address-form label {
+    font-weight: bold;
+    font-size: 0.9em;
+    color: #444;
+    text-align: right;
+    padding-right: 5px;
+    margin-bottom: 0;
+}
+
+#address-form input[type="text"] {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1em;
+    box-sizing: border-box;
+    width: 350px; /* ADDED: Limit the maximum width of the input box */
+    margin-bottom: 0;
+    /* Optional: If input doesn't align left within its column */
+    /* justify-self: start; */
+}
+
+/* Specific handling for the checkbox row */
+#address-form label[for="isDefault"] {
+    grid-column: 2 / 3;
+    text-align: left;
+    font-weight: normal;
+    padding-left: 5px;
+    cursor: pointer;
+}
+
+#address-form input[type="checkbox"]#isDefault {
+    grid-column: 1 / 2;
+    justify-self: end;
+    margin: 0;
+    width: auto;
+    cursor: pointer;
+}
+
+/* Container for Save/Cancel buttons */
+.form-actions {
+    grid-column: 1 / -1;
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid #eee;
+}
+
+.form-actions button {
+    padding: 10px 20px;
+    cursor: pointer;
+    border: none;
+    border-radius: 4px;
+    font-size: 1em;
+    transition: background-color 0.2s ease;
+}
+
+.form-actions button[type="submit"] {
+    background-color: #28a745;
+    color: white;
+}
+.form-actions button[type="submit"]:hover {
+    background-color: #218838;
+}
+
+.form-actions button[type="button"],
+.form-actions #cancel-btn {
+    background-color: #6c757d;
+    color: white;
+}
+.form-actions button[type="button"]:hover,
+.form-actions #cancel-btn:hover {
+    background-color: #5a6268;
+}
+
+
+/* ----- END: UPDATED FORM STYLES ----- */
+
+
+/* --- Utility and Error Styles (Keep as is) --- */
+.hidden {
+    display: none !important;
+}
+
+.error-message {
+    color: red;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 15px;
+}
+
+/* --- Optional: Responsiveness for the Form (Update input max-width if needed) --- */
+@media (max-width: 500px) {
+  #address-form {
+    grid-template-columns: 1fr; /* Stack to a single column */
+    gap: 5px 0;
+  }
+
+  #address-form label {
+     grid-column: 1 / -1;
+     text-align: left;
+     padding-right: 0;
+     margin-bottom: 3px;
+  }
+
+   #address-form input[type="text"]{
+       grid-column: 1 / -1;
+       margin-bottom: 10px;
+       max-width: none; /* Allow input to be full width on small screens */
+   }
+
+   /* Checkbox layout for stacking */
+   #address-form input[type="checkbox"]#isDefault {
+       grid-column: 1 / -1;
+       justify-self: start;
+       margin-bottom: 0;
+   }
+    #address-form label[for="isDefault"]{
+       grid-column: 1 / -1;
+       padding-left: 25px;
+       position: relative;
+       top: -18px;
+       margin-bottom: -10px;
+   }
+
+   .form-actions {
+       justify-content: center;
+   }
+}
