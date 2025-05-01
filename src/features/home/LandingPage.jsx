@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import HighlightedProductsCarousel from './HighlightedProductsCarousel';
-import SidebarFilters from './SidebarFilters';
-import ProductGrid from '../features/products/ProductGrid';
-import withLayout from '../HOC/withLayout';
+import HighlightedProductsCarousel from '../products/HighlightedProductsCarousel';
+import SidebarFilters from '../products/Filters/SidebarFilters';
+import ProductGrid from '../products/ProductGrid/index';
+import withLayout from '../../layouts/HOC/withLayout';
 
 const LandingPage = () => {
     
