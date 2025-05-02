@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import ProductCard from './ProductCard';
 import Pagination from './Pagination';
+import './ProductGrid.css';
 
 const ProductGrid = ({ searchQuery, category }) => {
   const [products, setProducts] = useState([]);

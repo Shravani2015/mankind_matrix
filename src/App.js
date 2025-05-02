@@ -1,7 +1,6 @@
 // src/App.js
 import React from 'react';
-import './styles/global.css'; 
-import './styles/variables.css';
+import './styles/global.css';
 import AppRouter from './routes/AppRouter';
 
 const App = () => {

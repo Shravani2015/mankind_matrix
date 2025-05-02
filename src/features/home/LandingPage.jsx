@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import './LandingPage.css';
 import HighlightedProductsCarousel from '../products/HighlightedProductsCarousel';
 import SidebarFilters from '../products/Filters/SidebarFilters';
 import ProductGrid from '../products/ProductGrid';

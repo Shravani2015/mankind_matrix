@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import './SidebarFilters.css';
 
 const SidebarFilters = ({ onFilterChange }) => {
   const [selectedCategory, setSelectedCategory] = useState('');
