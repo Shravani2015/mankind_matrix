@@ -6,17 +6,28 @@ import ProductGrid from '../products/ProductGrid';
 import withLayout from '../../layouts/HOC/withLayout';
 
 const LandingPage = () => {
-    
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('');
+  
   return (
-     <>
+    <>
       <HighlightedProductsCarousel />
       <div className="main-content">
-        <div className="filters-and-grid">
-          <SidebarFilters onFilterChange={setSelectedCategory} />
-          <ProductGrid searchQuery={searchQuery} category={selectedCategory} />
-        </div>
+        <section className="products-section">
+          {/* Products header */}
+          <div className="products-header">
+            <h2 className="products-title">Our Products</h2>
+            <SidebarFilters onFilterChange={setSelectedCategory} />
+          </div>
+          
+          {/* Product grid */}
+          <div className="product-grid-container">
+            <ProductGrid 
+              searchQuery={searchQuery} 
+              category={selectedCategory} 
+            />
+          </div>
+        </section>
       </div>
     </>
   );

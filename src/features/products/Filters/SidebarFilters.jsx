@@ -10,8 +10,8 @@ const SidebarFilters = ({ onFilterChange }) => {
   };
 
   return (
-    <div className="sidebar-filters">
-      <h4>Filter by Category</h4>
+    <div className="product-filter">
+      <h4>Filter by Category:</h4>
       <select onChange={handleCategoryChange} value={selectedCategory}>
         <option value="">All Products</option>
         <option value="GPUs">GPUs</option>
