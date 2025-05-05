@@ -3,7 +3,6 @@ import styles from './ProfilePage.module.css';
 import './accountpage.css';
 import { NavLink, useNavigate } from 'react-router-dom';
 import AccountNavigation from './AccountNavigation'; // Adjust the import path as necessary
-import withLayout from '../../layouts/HOC/withLayout';
 
 const ProfilePageContent = () => {
   const [profile, setProfile] = useState({
@@ -103,4 +102,4 @@ const ProfilePage = () => (
   </div>
 );
 
-export default withLayout(ProfilePage);
+export default ProfilePage;
