@@ -5,9 +5,11 @@ import Footer from './components/Footer';
 
 const MainLayout = ({ children }) => {
   return (
-    <div>
+    <div className="app-container">
       <Header />
-      {children}
+        <main className="main-content-wrapper">
+          {children}
+        </main>
       <Footer />
     </div>
   );

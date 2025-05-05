@@ -1,13 +1,22 @@
 .main-content {
     display: block;
     width: 100%;
-    padding: 0 20px;
+    max-width: 100%;
+    padding: 0 1rem;
     box-sizing: border-box;
+    overflow-x: hidden;
 }
 
 .filters-and-grid {
     display: flex;
-    flex-direction: column;
-    align-items: flex-end;
+    flex-direction: row;
+    flex-wrap: wrap;
     gap: 20px;
+    width: 100%;
+}
+
+@media (max-width: 768px) {
+    .filters-and-grid {
+        flex-direction: column;
+    }
 }
