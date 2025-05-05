@@ -13,7 +13,7 @@ const AppRouter = () => {
         <Route path="/" element={<LandingPage />} />
         <Route path='products' element={<Product></Product>}></Route>
         <Route path='login' element={<Login></Login>}></Route>
-        <Route path='product' element={<ProductPage></ProductPage>}></Route>
+        <Route path='product/:id' element={<ProductPage></ProductPage>}></Route>
       </Routes>
     </Router>
   );

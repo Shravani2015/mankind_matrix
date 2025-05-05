@@ -7,7 +7,10 @@ export const getAllProducts = async (page = 0, size = 10) => {
   };
 
   export const getProductById = async (id) => {
-    const res = await axios.get(`${BASE_URL}/${id}`);
+    const res = await axios.get(`${BASE_URL}/${id}`, {
+        headers: {
+          'Cache-Control': 'no-cache',
+        }});
     return res.data;
   };
   
