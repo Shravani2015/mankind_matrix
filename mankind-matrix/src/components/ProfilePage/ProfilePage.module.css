@@ -2,10 +2,11 @@
 
 .profilePageContainer {
     display: flex; /* Use flexbox to place navigation and content side by side */
-    max-width: 900px; /* Adjust as needed */
+    max-width: 4600px; /* Adjust as needed */
     margin: 0 auto;
     margin-left: 0;
-    gap: 250px; /* Space between navigation and content */
+    margin-right: 50px; /* Space on the right */
+    gap: 50px; /* Space between navigation and content */
     padding: 20px;
     align-self: start;
   }
@@ -23,7 +24,7 @@
   .accountNavigationContainer h3 {
     margin-top: 0;
     margin-bottom: 15px;
-    color: #333;
+    color: #000000;
   }
   
   .accountNavigationContainer ul {
@@ -59,6 +60,8 @@
     border-radius: 8px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     padding: 24px;
+    width: 100%; /* Ensure it takes full width of the container */
+    max-width: 1200px; /* Optional: limit the maximum width */
   }
   
   .profileCard h2 {
@@ -78,7 +81,7 @@
   .infoItem {
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: left;
     padding: 10px 0;
     border-bottom: 1px solid #f5f5f5;
   }
@@ -92,10 +95,12 @@
   .value {
     flex-grow: 1;
     overflow-wrap: break-word;
+    text-align: left;
+    padding-left: 75px; /* Add left padding for gap */
   }
   
   .editButton {
-    background-color: #007bff;
+    background-color: #000000;
     color: white;
     border: none;
     padding: 10px 20px;
@@ -106,11 +111,11 @@
   }
   
   .editButton:hover {
-    background-color: #0069d9;
+    background-color: #000000;
   }
   
   .addButton {
-    background-color: #007bff;
+    background-color: #000000;
     color: white;
     border: none;
     padding: 8px 15px;
@@ -120,7 +125,7 @@
   }
   
   .addButton:hover {
-    background-color: #0069d9;
+    background-color: #000000;
   }
   
   .mobileInfo {

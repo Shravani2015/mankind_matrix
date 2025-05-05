@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 import Header from './components/Header/Header';
+import Footer from './components/Header/footer.js';
 import ProfilePage from './components/ProfilePage/ProfilePage';
 import AccountPage from './components/ProfilePage/accountpage.js'; // Import the new Account component
 import EditProfile from './components/ProfilePage/edit-profile.js';
 import ManageAddressesPage from './components/ProfilePage/manageaddress.js';
+import OrderManager from './components/ProfilePage/orders.js';
 import './App.css';
 
 // Main application component
@@ -94,15 +96,14 @@ function AppContent() {
           <Route path="/profile" element={<ProfilePage />} />
           <Route path="/account" element={<AccountPage />} /> {/* Added new Account route */}
           <Route path="/addresses" element={<ManageAddressesPage />} />
+          <Route path="/orders" element={<OrderManager />} />
           <Route path="/cart" element={<CartPage />} />
           <Route path="/checkout" element={<CheckoutPage />} />
           <Route path="/edit-profile" element={<EditProfile />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </main>
-      <footer className="App-footer">
-        <p>&copy; {new Date().getFullYear()} Mankind Matrix - Connecting Humanity</p>
-      </footer>
+      <Footer />
 
       {/* Toast container for notifications */}
       <div id="toast-container" className="toast-container"></div>
