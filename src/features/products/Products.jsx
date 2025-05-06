@@ -1,4 +1,4 @@
-import withLayout from '../../HOC/withLayout';
+import withLayout from '../../layouts/HOC/withLayout';
 
 function Product() {
     return (
