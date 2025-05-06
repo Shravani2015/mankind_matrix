@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { NavLink } from 'react-router-dom';
 import './manageaddress.css'; // For the layout of the address page
 import AccountNavigation from './AccountNavigation'; // Import the shared navigation
+import withLayout from '../../layouts/HOC/withLayout';
 
 const ManageAddressesPage = () => {
   const addressManagerRef = useRef({
@@ -224,8 +225,10 @@ const ManageAddressesPage = () => {
             <input type="text" id="zipcode" name="zipcode" value={currentAddress.zipcode} onChange={handleInputChange} required />
             <label htmlFor="country">Country:</label>
             <input type="text" id="country" name="country" value={currentAddress.country} onChange={handleInputChange} required />
-            <label htmlFor="isDefault">Set as Default:</label>
-            <input type="checkbox" id="isDefault" name="isDefault" checked={currentAddress.isDefault} onChange={handleInputChange} />
+            <div className="default-checkbox-container">
+              <label htmlFor="isDefault">Set as Default:</label>
+              <input type="checkbox" id="isDefault" name="isDefault" checked={currentAddress.isDefault} onChange={handleInputChange} />
+            </div>
             <div className="form-actions">
               <button type="submit">Saved Address</button>
               <button type="button" id="cancel-btn" onClick={handleCancelForm}>Cancel</button>
@@ -237,4 +240,4 @@ const ManageAddressesPage = () => {
   );
 };
 
-export default ManageAddressesPage;
+export default withLayout(ManageAddressesPage);

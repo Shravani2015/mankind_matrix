@@ -6,14 +6,27 @@ body {
 }
 .manage-addresses-container {
     display: flex; /* Places AccountNavigation and content side-by-side */
-    gap: 250px; /* Space between navigation and content */
+    gap: 50px; /* Space between navigation and content */
     padding: 20px; /* Padding around the entire addresses section */
     max-width: 1200px; /* Optional: constrain width */
     margin-left: 0;
     font-family: sans-serif; /* Basic font */
   }
 /* --- Header and General Styles (Keep as is) --- */
+.default-checkbox-container {
+    grid-column: 1 / -1; /* Span both columns of the grid */
+    display: flex; /* Enable Flexbox for inline alignment */
+    align-items: center; /* Vertically align items in the center */
+    justify-content: flex-start; /* Align items to the left */
+    margin-top: 10px; /* Add some top margin for spacing */
+}
 
+.default-checkbox-container label[for="isDefault"] {
+    text-align: left;
+    font-weight: normal;
+    padding-left: 5px;
+    margin-right: 10px; /* This will create the gap */
+}
 
 /* --- Container for Address Section --- */
 #address-root {

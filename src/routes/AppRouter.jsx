@@ -8,6 +8,7 @@ import AccountPage from '../features/profile/accountpage.jsx'; // Importing Acco
 import EditProfile from '../features/profile/edit-profile.jsx';
 import ManageAddressesPage from '../features/profile/manageaddress.jsx';
 import OrderManager from '../features/profile/orders.jsx';
+import PaymentMethods from '../features/profile/payments.jsx';
 
 const AppRouter = () => {
     
@@ -22,6 +23,7 @@ const AppRouter = () => {
         <Route path="/addresses" element={<ManageAddressesPage />} />
         <Route path="/orders" element={<OrderManager />} />
         <Route path="/edit-profile" element={<EditProfile />} />
+        <Route path="/payments" element={<PaymentMethods/>} />
       </Routes>
     </Router>
   );

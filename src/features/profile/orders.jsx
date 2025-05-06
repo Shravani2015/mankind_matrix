@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import './orders.css'; // Import your CSS styles for the component
 import AccountNavigation from './AccountNavigation';
+import withLayout from '../../layouts/HOC/withLayout';
 // API endpoint configuration - replace with your actual API URL
 const API_URL = 'https://your-api-endpoint.com/orders';
 
@@ -342,4 +343,4 @@ function getMockOrders() {
   ];
 }
 
-export default Order;
+export default withLayout(Order);

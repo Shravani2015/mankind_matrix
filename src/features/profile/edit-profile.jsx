@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import './edit-profile.css';
 import AccountNavigation from './AccountNavigation'; // Import the AccountNavigation component
+import withLayout from '../../layouts/HOC/withLayout';
 
 function EditProfile() {
   const [profile, setProfile] = useState({
@@ -227,4 +228,4 @@ function EditProfile() {
   );
 }
 
-export default EditProfile;
+export default withLayout(EditProfile);
