@@ -51,7 +51,7 @@
   margin: 0 auto 20px;
 }
 
-.login-form {
+.login-wrapper form {
   display: flex;
   flex-direction: column;
   gap: 14px;
@@ -59,26 +59,26 @@
   width: 320px;
 }
 
-.login-form p {
+.login-wrapper form p {
   color: #666;
   font-size: 15px;
   margin-bottom: 20px;
 }
 
-.login-form h2 {
+.login-wrapper form h2 {
   font-size: 24px;
   font-weight: 700;
   margin-bottom: 6px;
 }
 
-.login-form label {
+.login-wrapper form label {
   font-weight: 500;
   font-size: 14px;
   text-align: start;
 }
 
-.login-form input[type="email"],
-.login-form input[type="password"] {
+.login-wrapper form input[type="email"],
+.login-wrapper form input[type="password"] {
   background-color: #f6f7f9;
   border: none;
   border-radius: 14px;
@@ -88,7 +88,7 @@
   box-shadow: 0 1px 3px rgba(0,0,0,0.06);
 }
 
-.login-form input:focus {
+.login-wrapper form input:focus {
   border-color: #2563eb;
   background-color: #ededed;
   outline: none;
@@ -127,7 +127,7 @@
   color: #2563eb;
 }
 
-.login-form button[type="submit"] {
+.login-wrapper form button[type="submit"] {
   padding: 16px;
   font-size: 16px;
   background: linear-gradient(to bottom, #000000, #222222);
@@ -141,7 +141,7 @@
   margin-top: 10px;
 }
 
-.login-form button[type="submit"]:hover {
+.login-wrapper form button[type="submit"]:hover {
   background: linear-gradient(to right, #222, #444);
 }
 
