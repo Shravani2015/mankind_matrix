@@ -1,13 +1,24 @@
 // src/components/ProductCard.js
-import React from 'react';
+import React, { useState } from 'react';
+import { useCart } from '../../../context/CartContext';
+import CartNotification from '../../cart/CartNotification';
 
 const ProductCard = ({ product }) => {
+  const { addToCart } = useCart();
+  const [showNotification, setShowNotification] = useState(false);
+
   const viewProductDetails = (id) => {
     window.location.href = `/products/${id}`;
   };
 
-  const addToCart = (id) => {
-    console.log(`Product ${id} added to cart`);
+  const handleAddToCart = (product) => {
+    addToCart(product);
+    setShowNotification(true);
+    
+    // Hide notification after it animates out
+    setTimeout(() => {
+      setShowNotification(false);
+    }, 3000);
   };
 
   return (
@@ -21,8 +32,12 @@ const ProductCard = ({ product }) => {
       </ul>
       <div className="actions">
         <button onClick={() => viewProductDetails(product.id)}>View Details</button>
-        <button onClick={() => addToCart(product.id)}>Add to Cart</button>
+        <button onClick={() => handleAddToCart(product)}>Add to Cart</button>
       </div>
+      
+      {showNotification && (
+        <CartNotification message={`${product.name} added to cart!`} />
+      )}
     </div>
   );
 };
