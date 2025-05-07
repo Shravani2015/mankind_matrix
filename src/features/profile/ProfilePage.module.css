@@ -5,14 +5,13 @@
     max-width: 4600px; /* Adjust as needed */
     margin: 0 auto;
     margin-left: 0;
-    margin-right: 50px; /* Space on the right */
-    gap: 50px; /* Space between navigation and content */
+    gap: 0px; /* Space between navigation and content */
     padding: 20px;
     align-self: start;
   }
   
   .accountNavigationContainer {
-    width: 350px; /* Adjust the width of the navigation sidebar */
+    width: 300px; /* Adjust the width of the navigation sidebar */
     background-color: #f8f8f8;
     border-right: 1px solid #eee;
     padding: 20px;
@@ -25,7 +24,7 @@
     margin-top: 0;
     margin-bottom: 15px;
     color: #000000;
-    font-size: 1.8rem;
+    font-size: 1.6rem;
   }
   
   .accountNavigationContainer ul {
@@ -39,7 +38,7 @@
     padding: 10px 15px;
     cursor: pointer;
     transition: background-color 0.3s ease;
-    font-size: 1.3rem;
+    font-size: 1.2rem;
   }
   
   .accountNavigationContainer ul li:hover {
@@ -61,6 +60,7 @@
     flex-grow: 1; /* Allow the profile card to take up the remaining space */
     border-radius: 8px;
     padding: 24px;
+    margin-left: 150px; /* Space between navigation and content */
     width: 100%; /* Ensure it takes full width of the container */
     max-width: 1200px; /* Optional: limit the maximum width */
   }

@@ -21,7 +21,7 @@ body {
 
 .manage-addresses-container {
     display: flex; /* Places AccountNavigation and content side-by-side */
-    gap: 50px; /* Space between navigation and content */
+    gap: 0px; /* Space between navigation and content */
     padding: 20px; /* Padding around the entire addresses section */
     max-width: auto; /* Optional: constrain width */
     margin-left: 0;
@@ -82,9 +82,8 @@ body {
     display: grid;
     grid-template-columns: auto 1fr; /* Label column sized to content, Input takes rest */
     gap: 15px 12px; /* Vertical(row) gap, Horizontal(column) gap */
-    align-items: center; /* Vertically center label and input in their row */
     margin-top: 25px;;
-    margin-left: 190px;;
+    margin-left: 150px;;
     width: 70%; /* Set a fixed width for the form */
 }
 

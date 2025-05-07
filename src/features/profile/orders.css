@@ -3,7 +3,7 @@
 /* Account page layout */
 .account-page {
   display: flex; /* Places AccountNavigation and content side-by-side */
-  gap: 50px; /* Space between navigation and content */
+  gap: 0px; /* Space between navigation and content */
   padding: 20px; /* Padding around the entire addresses section */
   width: 100%; /* Full width of the parent */
   max-width: 2000px; /* Optional: constrain width */
