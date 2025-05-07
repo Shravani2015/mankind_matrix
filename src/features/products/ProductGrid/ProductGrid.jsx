@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import ProductCard from './ProductCard';
 import Pagination from './Pagination';
+import './ProductGrid.css';
 
 const ProductGrid = ({ searchQuery, category }) => {
   const [products, setProducts] = useState([]);
   const [filtered, setFiltered] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const productsPerPage = 10;
+  const [productsPerPage, setProductsPerPage] = useState(12);
+  const [isLoading, setIsLoading] = useState(true);
 
   // Hardcoded dummy product data for testing
   const dummyProducts = [
@@ -183,17 +185,51 @@ const ProductGrid = ({ searchQuery, category }) => {
     }
   ];
   
+  // Set initial products
   useEffect(() => {
     setProducts(dummyProducts);
     setFiltered(dummyProducts);
+    setIsLoading(false);
   }, []);
 
+  // Adjust products per page based on screen size
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth <= 576) {
+        // 4 products (2 rows of 2)
+        setProductsPerPage(4);
+      } else if (window.innerWidth <= 992) {
+        // 6 products (3 rows of 2)
+        setProductsPerPage(6);
+      } else {
+        // 8 products (2 rows of 4)
+        setProductsPerPage(8);
+      }
+    };
+
+    // Set initial value and add event listener
+    handleResize();
+    window.addEventListener('resize', handleResize);
+
+    // Cleanup
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  // Filter products based on search query and category
   useEffect(() => {
     let result = products;
-    if (category) result = result.filter(p => p.category === category);
-    if (searchQuery) result = result.filter(p =>
-      p.name.toLowerCase().includes(searchQuery.toLowerCase())
-    );
+    
+    if (category) {
+      result = result.filter(p => p.category === category);
+    }
+    
+    if (searchQuery) {
+      result = result.filter(p =>
+        p.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        p.shortDescription.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+    }
+    
     setFiltered(result);
     setCurrentPage(1); // Reset to first page when filtering/searching
   }, [searchQuery, category, products]);
@@ -204,19 +240,38 @@ const ProductGrid = ({ searchQuery, category }) => {
   const currentProducts = filtered.slice(indexOfFirstProduct, indexOfLastProduct);
   const totalPages = Math.ceil(filtered.length / productsPerPage);
 
-  return (
-    <div>
-      <div className="product-grid grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-        {currentProducts.map(product => (
-          <ProductCard key={product.id} product={product} />
-        ))}
+  if (isLoading) {
+    return (
+      <div className="product-grid-container">
+        <div className="loading">Loading products...</div>
       </div>
-      
-      <Pagination
-        currentPage={currentPage}
-        totalPages={totalPages}
-        onPageChange={setCurrentPage}
-      />
+    );
+  }
+
+  return (
+    <div className="product-grid-container">
+      {filtered.length === 0 ? (
+        <div className="no-results">
+          <p>No products found matching your criteria.</p>
+          <p>Try adjusting your filter or search terms.</p>
+        </div>
+      ) : (
+        <>
+          <div className="product-grid">
+            {currentProducts.map(product => (
+              <ProductCard key={product.id} product={product} />
+            ))}
+          </div>
+          
+          {totalPages > 1 && (
+            <Pagination
+              currentPage={currentPage}
+              totalPages={totalPages}
+              onPageChange={setCurrentPage}
+            />
+          )}
+        </>
+      )}
     </div>
   );
 };

@@ -21,7 +21,7 @@ const ProductHighlightCard = ({ product }) => {
           <div className="card-category">{truncateText(category, 25)}</div>
           <div className="card-price">{price}</div>
         </div>
-        <button>SHOP NOW</button>
+        <button className="shop-now-button">SHOP NOW</button>
       </div>
     </div>
   );

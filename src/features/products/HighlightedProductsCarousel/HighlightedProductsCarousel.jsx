@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Slider from 'react-slick';
 import ProductHighlightCard from './ProductHighlightCard';
 import './HighlightedProductsCarousel.css';
@@ -9,30 +9,24 @@ import "slick-carousel/slick/slick-theme.css";
 const PrevArrow = (props) => {
   const { onClick } = props;
   return (
-  <div className="custom-arrow custom-prev" onClick={onClick}>
+    <div className="custom-arrow custom-prev" onClick={onClick}>
       <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <polyline points="15 18 9 12 15 6"></polyline>
+        <polyline points="15 18 9 12 15 6"></polyline>
       </svg>
-  </div>
+    </div>
   );
 };
 
 const NextArrow = (props) => {
   const { onClick } = props;
   return (
-  <div className="custom-arrow custom-next" onClick={onClick}>
+    <div className="custom-arrow custom-next" onClick={onClick}>
       <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <polyline points="9 18 15 12 9 6"></polyline>
+        <polyline points="9 18 15 12 9 6"></polyline>
       </svg>
-  </div>
+    </div>
   );
 };
-
-const CustomDots = (dots) => (
-    <div className="custom-dots-container">
-    {dots}
-    </div>
-);
 
 const HighlightedProductsCarousel = () => {
   // Dummy data for featured electronic products
@@ -95,22 +89,35 @@ const HighlightedProductsCarousel = () => {
     }
   ];
 
+  // Current slide tracking
+  const [currentSlide, setCurrentSlide] = useState(0);
+
+  // Calculate number of pages (for dots)
+  const itemsPerPage = 5; // Match slidesToShow
+  const totalPages = Math.ceil(featuredProducts.length / itemsPerPage);
+  
   // Settings for react-slick carousel
   const settings = {
-    dots: true,
+    dots: false, // Disable the built-in dots, we'll create our own
     infinite: true,
     speed: 500,
-    slidesToShow: 6,
-    slidesToScroll: 6,
+    slidesToShow: 5,
+    slidesToScroll: 5,
     initialSlide: 0,
     autoplay: false,
     autoplaySpeed: 5000,
     arrows: false,
-    appendDots: dots => CustomDots(dots),
-    customPaging: i => (
-      <div className="custom-dot"></div>
-    ),
+    beforeChange: (current, next) => {
+      setCurrentSlide(next / itemsPerPage); // Update current slide for custom dots
+    },
     responsive: [
+      {
+        breakpoint: 1600,
+        settings: {
+          slidesToShow: 5,
+          slidesToScroll: 5,
+        }
+      },
       {
         breakpoint: 1400,
         settings: {
@@ -157,16 +164,58 @@ const HighlightedProductsCarousel = () => {
     }
   };
 
-  return (
-    <div className="highlighted-products-container">
-      <Slider ref={sliderRef} {...settings}>
-        {featuredProducts.map(product => (
-          <div key={product.id} className="carousel-item">
-            <ProductHighlightCard product={product} />
-          </div>
+  // Go to specific slide
+  const goToSlide = (index) => {
+    if (sliderRef.current) {
+      sliderRef.current.slickGoTo(index * itemsPerPage);
+    }
+  };
+
+  // Custom dots component
+  const renderCustomDots = () => {
+    return (
+      <div style={{
+        position: 'absolute',
+        bottom: '-40px',
+        width: '100%',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        zIndex: 1000,
+      }}>
+        {Array.from({ length: totalPages }).map((_, index) => (
+          <div
+            key={index}
+            style={{
+              width: '10px',
+              height: '10px',
+              borderRadius: '50%',
+              backgroundColor: currentSlide === index ? '#101820' : '#ccc',
+              margin: '0 5px',
+              cursor: 'pointer',
+              transform: currentSlide === index ? 'scale(1.3)' : 'scale(1)',
+              transition: 'all 0.3s ease',
+            }}
+            onClick={() => goToSlide(index)}
+          />
         ))}
-      </Slider>
-      <div className="navigation-container">
+      </div>
+    );
+  };
+
+  return (
+    <div className="highlighted-products-container" style={{ position: 'relative', paddingBottom: '70px' }}>
+      <div className="slider-wrapper" style={{ position: 'relative', overflow: 'visible' }}>
+        <Slider ref={sliderRef} {...settings}>
+          {featuredProducts.map(product => (
+            <div key={product.id} className="carousel-item">
+              <ProductHighlightCard product={product} />
+            </div>
+          ))}
+        </Slider>
+        {renderCustomDots()} {/* Our custom dots */}
+      </div>
+      <div className="navigation-container" style={{ position: 'absolute', bottom: '10px', width: '100%' }}>
         <div className="arrows-container">
           <PrevArrow onClick={goToPrev} />
           <NextArrow onClick={goToNext} />

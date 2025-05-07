@@ -3,7 +3,7 @@
   flex-direction: column;
   border-radius: 10px;
   margin: 0.5rem;
-  height: 330px;
+  height: auto;
   transition: all 0.3s ease-in-out;
   color: #333;
   position: relative;
@@ -14,15 +14,15 @@
 }
 
 .product-highlight-card:hover {
-  transform: scale(1.05);
+  transform: translateY(-4px);
   box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
   z-index: 10;
 }
 
 .card-image-container {
   width: 100%;
-  height: 170px;
-  overflow: hidden;
+  height: 120px;
+  overflow: visible;
   position: relative;
   background-color: #fff;
   display: flex;
@@ -32,8 +32,8 @@
 }
 
 .card-image {
-  max-width: 100%;
-  max-height: 120px;
+  max-width: 90%;
+  max-height: 80px;
   object-fit: contain;
   transition: transform 0.3s ease;
 }
@@ -47,23 +47,24 @@
   flex-direction: column;
   padding: 0.5rem;
   justify-content: space-between;
-  height: 160px;
+  flex: 1;
+  height: auto;
 }
 
 .card-info {
-  height: 90px;
+  height: auto;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
 }
 
 .card-name {
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   font-weight: 700;
   margin-bottom: 0.5rem 0;
   text-transform: capitalize;
   line-height: 1.2;
-  height: 1.6rem;
+  height: auto;
   overflow: hidden;
   display: -webkit-box;
   -webkit-line-clamp: 1;
@@ -71,13 +72,13 @@
 }
 
 .card-category {
-  font-size: 0.75rem;
+  font-size: 0.7rem;
   text-transform: uppercase;
   letter-spacing: 1px;
   font-weight: 500;
   opacity: 0.75;
   margin-bottom: 0.5rem;
-  height: 1rem;
+  height: auto;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -88,6 +89,13 @@
   font-weight: 600;
   margin-top: 0.2rem;
   color: #2a2a2a;
+}
+
+.card-content button {
+  padding: 0.4rem 0.8rem;
+  font-size: 0.85rem;
+  margin-top: 0.5rem;
+  white-space: nowrap;
 }
 
 @media (max-width: 1400px) {
