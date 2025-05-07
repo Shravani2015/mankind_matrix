@@ -2,29 +2,15 @@
 
 /* Account page layout */
 .account-page {
-  display: flex;
-  max-width: 1400px;
-  margin: 0 auto;
-  min-height: 100vh;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-
-/* Account navigation */
-.account-navigation {
   display: flex; /* Places AccountNavigation and content side-by-side */
-  gap: 250px; /* Space between navigation and content */
+  gap: 50px; /* Space between navigation and content */
   padding: 20px; /* Padding around the entire addresses section */
-  max-width: 1200px; /* Optional: constrain width */
+  width: 100%; /* Full width of the parent */
+  max-width: 2000px; /* Optional: constrain width */
   margin-left: 0;
   font-family: sans-serif; /* Basic font */
 }
 
-.account-navigation h3 {
-  margin-top: 0;
-  margin-bottom: 20px;
-  font-size: 20px;
-  color: #000000;
-}
 
 .nav-list {
   list-style: none;
@@ -75,9 +61,11 @@
 }
 
 .orders-container h2 {
-  font-size: 28px;
-  margin-bottom: 20px;
+  font-size: 2.5rem;
+  font-weight: 700;
+  text-align: center;
   color: #000000;
+  margin-bottom: 0.5rem;
 }
 
 /* Loading state */

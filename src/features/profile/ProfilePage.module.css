@@ -12,7 +12,7 @@
   }
   
   .accountNavigationContainer {
-    width: 250px; /* Adjust the width of the navigation sidebar */
+    width: 350px; /* Adjust the width of the navigation sidebar */
     background-color: #f8f8f8;
     border-right: 1px solid #eee;
     padding: 20px;
@@ -25,18 +25,21 @@
     margin-top: 0;
     margin-bottom: 15px;
     color: #000000;
+    font-size: 1.8rem;
   }
   
   .accountNavigationContainer ul {
     list-style: none;
     padding: 0;
     margin: 0;
+    
   }
   
   .accountNavigationContainer ul li {
     padding: 10px 15px;
     cursor: pointer;
     transition: background-color 0.3s ease;
+    font-size: 1.3rem;
   }
   
   .accountNavigationContainer ul li:hover {
@@ -56,25 +59,26 @@
   
   .profileCard {
     flex-grow: 1; /* Allow the profile card to take up the remaining space */
-    background-color: #fff;
     border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     padding: 24px;
     width: 100%; /* Ensure it takes full width of the container */
     max-width: 1200px; /* Optional: limit the maximum width */
   }
   
   .profileCard h2 {
-    margin-top: 0;
-    margin-bottom: 20px;
-    color: #333;
-    border-bottom: 1px solid #eee;
-    padding-bottom: 10px;
+    font-size: 2.5rem;
+  font-weight: 700;
+  text-align: center;
+  color: #000000;
+  margin-bottom: 1rem;
   }
   
   .profileInfo {
     display: flex;
     flex-direction: column;
+    background-color: #f5f5f5;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    padding: 40px;
     gap: 15px;
   }
   

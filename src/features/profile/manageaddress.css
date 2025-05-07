@@ -4,11 +4,26 @@ body {
     margin: 0;
     background-color: #f4f4f4;
 }
+.manage-addresses-content {
+    flex-direction: column;
+    width: auto; /* Constrain the width of the content */
+    text-align: center; /* Center the text */
+    width: 100%;
+}
+
+.manage-addresses-content h2 {
+    font-size: 2.5rem;
+  font-weight: 700;
+  text-align: center;
+  color: #000000;
+  margin-bottom: 0.5rem;
+}
+
 .manage-addresses-container {
     display: flex; /* Places AccountNavigation and content side-by-side */
     gap: 50px; /* Space between navigation and content */
     padding: 20px; /* Padding around the entire addresses section */
-    max-width: 1200px; /* Optional: constrain width */
+    max-width: auto; /* Optional: constrain width */
     margin-left: 0;
     font-family: sans-serif; /* Basic font */
   }
@@ -66,9 +81,11 @@ body {
 #address-form {
     display: grid;
     grid-template-columns: auto 1fr; /* Label column sized to content, Input takes rest */
-    gap: 12px 10px; /* Vertical(row) gap, Horizontal(column) gap */
+    gap: 15px 12px; /* Vertical(row) gap, Horizontal(column) gap */
     align-items: center; /* Vertically center label and input in their row */
-    width: 400px; /* Set a fixed width for the form */
+    margin-top: 25px;;
+    margin-left: 190px;;
+    width: 70%; /* Set a fixed width for the form */
 }
 
 #address-form label {
@@ -76,7 +93,8 @@ body {
     font-size: 0.9em;
     color: #000000;
     text-align: right;
-    padding-right: 5px;
+    padding-right: 50px; /* Space between label and input */
+    margin-left: 150px; 
     margin-bottom: 0;
 }
 
@@ -86,7 +104,7 @@ body {
     border-radius: 4px;
     font-size: 1em;
     box-sizing: border-box;
-    width: 350px; /* ADDED: Limit the maximum width of the input box */
+    width: 70%; /* ADDED: Limit the maximum width of the input box */
     margin-bottom: 0;
     /* Optional: If input doesn't align left within its column */
     /* justify-self: start; */
@@ -111,20 +129,26 @@ body {
 
 /* Container for Save/Cancel buttons */
 .form-actions {
-    grid-column: 1 / -1;
-    display: flex;
-    justify-content: flex-end;
-    gap: 10px;
-    margin-top: 15px;
-    padding-top: 15px;
-    border-top: 1px solid #eee;
+    justify-content: left;
 }
 
-.form-actions button {
-    padding: 10px 20px;
+.form-actions button[type="submit"] {
+    padding: 8px 15px;
     cursor: pointer;
     border: none;
     border-radius: 4px;
+    width: 300px;
+    margin-left: 450px;
+    font-size: 1em;
+    transition: background-color 0.2s ease;
+}
+
+.form-actions button[type="button"] {
+    padding: 8px 15px;
+    cursor: pointer;
+    border: none;
+    border-radius: 4px;
+    align-items: center;
     font-size: 1em;
     transition: background-color 0.2s ease;
 }
@@ -139,7 +163,12 @@ body {
 
 .form-actions button[type="button"],
 .form-actions #cancel-btn {
+     /* Adjust vertical and horizontal padding */
+    font-size: 1em; /* Adjust the font size */
+    /* Optional: Set a fixed width */
+    /* width: 100px; */
     background-color: #000000;
+    margin-left: 40px;
     color: white;
 }
 

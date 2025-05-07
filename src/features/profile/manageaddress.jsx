@@ -229,11 +229,12 @@ const ManageAddressesPage = () => {
               <label htmlFor="isDefault">Set as Default:</label>
               <input type="checkbox" id="isDefault" name="isDefault" checked={currentAddress.isDefault} onChange={handleInputChange} />
             </div>
-            <div className="form-actions">
+            
+          </form>
+          <div className="form-actions">
               <button type="submit">Saved Address</button>
               <button type="button" id="cancel-btn" onClick={handleCancelForm}>Cancel</button>
             </div>
-          </form>
         </div>
       </div>
     </div>

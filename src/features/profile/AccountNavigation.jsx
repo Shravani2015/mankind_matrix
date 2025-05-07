@@ -22,17 +22,12 @@ const AccountNavigation = () => (
         </NavLink>
       </li>
       <li>
-        <NavLink to="/account/payments" className={({ isActive }) => isActive ? styles.active : ''}>
+        <NavLink to="/payments" className={({ isActive }) => isActive ? styles.active : ''}>
           Payment Methods
         </NavLink>
       </li>
       <li>
-        <NavLink to="/account/security" className={({ isActive }) => isActive ? styles.active : ''}>
-          Login & Security
-        </NavLink>
-      </li>
-      <li>
-        <NavLink to="/account/help" className={({ isActive }) => isActive ? styles.active : ''}>
+        <NavLink to="/help" className={({ isActive }) => isActive ? styles.active : ''}>
           Help & FAQ
         </NavLink>
       </li>

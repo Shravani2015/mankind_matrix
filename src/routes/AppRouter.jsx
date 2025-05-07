@@ -9,6 +9,7 @@ import EditProfile from '../features/profile/edit-profile.jsx';
 import ManageAddressesPage from '../features/profile/manageaddress.jsx';
 import OrderManager from '../features/profile/orders.jsx';
 import PaymentMethods from '../features/profile/payments.jsx';
+import Help from '../features/profile/help.jsx';
 
 const AppRouter = () => {
     
@@ -24,6 +25,7 @@ const AppRouter = () => {
         <Route path="/orders" element={<OrderManager />} />
         <Route path="/edit-profile" element={<EditProfile />} />
         <Route path="/payments" element={<PaymentMethods/>} />
+        <Route path="/help" element={<Help />} />
       </Routes>
     </Router>
   );
