@@ -1,7 +1,6 @@
 # Mankind Matrix
 
 **Mankind Matrix** is a React-based frontend application designed to showcase AI and Semiconductor products in an interactive and scalable interface.
-
 ---
 
 ## ⚙️ Tech Stack
@@ -80,6 +79,9 @@ Your application should now be running at:
 ```
 http://localhost:3000
 ```
+### 6. Backend Integration
+
+[Reference to backend Integration](backendIntegration.md)
 
 ---
 
