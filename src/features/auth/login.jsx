@@ -37,48 +37,50 @@ const Login = ({ onLogin }) => {
   };
 
   return (
-    <div className="login-wrapper">
-      <div className="login-card">
-        <div className="icon">🔐</div>
+    <div className="login-page">
+      <div className="login-wrapper">
+        <div className="login-card">
+          <div className="icon">🔐</div>
 
-        <form className="login-form" onSubmit={handleSubmit}>
-          <h2>Sign in</h2>
+          <form className="login-form" onSubmit={handleSubmit}>
+            <h2>Sign in</h2>
 
-          {formMessage && <div className="form-success">{formMessage}</div>}
+            {formMessage && <div className="form-success">{formMessage}</div>}
 
-          <label>Email</label>
-          <input
-            type="email"
-            placeholder="Email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          {submitted && emailError && <div className="field-error">{emailError}</div>}
+            <label>Email</label>
+            <input
+              type="email"
+              placeholder="Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            {submitted && emailError && <div className="field-error">{emailError}</div>}
 
-          <label>Password</label>
-          <input
-            type="password"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-          {submitted && passwordError && <div className="field-error">{passwordError}</div>}
+            <label>Password</label>
+            <input
+              type="password"
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            {submitted && passwordError && <div className="field-error">{passwordError}</div>}
 
-          <div className="form-options">
-            <label>
-              <input type="checkbox" /> Remember me
-            </label>
-            <div className="forgot">
-              <a href="#">Forgot password?</a>
+            <div className="form-options">
+              <label>
+                <input type="checkbox" /> Remember me
+              </label>
+              <div className="forgot">
+                <a href="#">Forgot password?</a>
+              </div>
             </div>
-          </div>
 
-          <button type="submit">Sign in →</button>
+            <button type="submit">Sign in →</button>
 
-          <p className="signup-link">
-            No account? <a href="#">Sign up</a>
-          </p>
-        </form>
+            <p className="signup-link">
+              No account? <a href="#">Sign up</a>
+            </p>
+          </form>
+        </div>
       </div>
     </div>
   );
