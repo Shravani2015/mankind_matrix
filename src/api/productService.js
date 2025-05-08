@@ -1,0 +1,16 @@
+import axios from 'axios';
+import BASE_URL from './config';
+
+export const getAllProducts = async (page = 0, size = 10) => {
+    const res = await axios.get(`${BASE_URL}/products?page=${page}&size=${size}`);
+    return res.data;
+  };
+
+  export const getProductById = async (id) => {
+    const res = await axios.get(`${BASE_URL}/products/${id}`, {
+        headers: {
+          'Cache-Control': 'no-cache',
+        }});
+    return res.data;
+  };
+  
