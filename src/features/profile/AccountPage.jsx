@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import './accountpage.css';
+import './AccountPage.css';
 import withLayout from '../../layouts/HOC/withLayout';
 
 const AccountPage = () => {

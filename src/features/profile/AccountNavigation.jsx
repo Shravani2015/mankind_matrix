@@ -1,39 +1,36 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import styles from './ProfilePage.module.css'; // Or wherever your shared styles are
+import './ProfilePage.css'; // Changed to standard CSS import
 
-const AccountNavigation = () => (
-  <div className={styles.accountNavigationContainer}>
-    <h3>Account Navigation</h3>
-    <ul>
-      <li>
-        <NavLink to="/profile" className={({ isActive }) => isActive ? styles.active : ''}>
-          Your Profile
-        </NavLink>
-      </li>
-      <li>
-        <NavLink to="/orders" className={({ isActive }) => isActive ? styles.active : ''}>
-          Your Orders
-        </NavLink>
-      </li>
-      <li>
-        <NavLink to="/addresses" className={({ isActive }) => isActive ? styles.active : ''}>
-          Your Addresses
-        </NavLink>
-      </li>
-      <li>
-        <NavLink to="/payments" className={({ isActive }) => isActive ? styles.active : ''}>
-          Payment Methods
-        </NavLink>
-      </li>
-      <li>
-        <NavLink to="/help" className={({ isActive }) => isActive ? styles.active : ''}>
-          Help & FAQ
-        </NavLink>
-      </li>
-      {/* Add more navigation links here */}
-    </ul>
-  </div>
-);
+const AccountNavigation = () => {
+  // Array of navigation items
+  const navItems = [
+    { path: '/profile', label: 'Your Profile' },
+    { path: '/orders', label: 'Your Orders' },
+    { path: '/addresses', label: 'Your Addresses' },
+    { path: '/payments', label: 'Payment Methods' },
+    { path: '/help', label: 'Help & FAQ' }
+  ];
+
+  return (
+    <div className="account-navigation-container">
+      <h3>Account Navigation</h3>
+      <ul className="account-navigation-list">
+        {navItems.map((item) => (
+          <li key={item.path} className="account-navigation-item">
+            <NavLink 
+              to={item.path} 
+              className={({ isActive }) => 
+                isActive ? 'account-navigation-link active' : 'account-navigation-link'
+              }
+            >
+              {item.label}
+            </NavLink>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+};
 
 export default AccountNavigation;

@@ -1,9 +1,9 @@
 // Order.js - React component for displaying past orders
 import React, { useState, useEffect } from 'react';
-import './orders.css'; // Import your CSS styles for the component
+import './Orders.css'; // Import your CSS styles for the component
+import axios from 'axios'; // Import axios for API calls
 import AccountNavigation from './AccountNavigation';
 import withLayout from '../../layouts/HOC/withLayout';
-// API endpoint configuration - replace with your actual API URL
 const API_URL = 'https://your-api-endpoint.com/orders';
 
 const Order = () => {
@@ -22,7 +22,7 @@ const Order = () => {
     setLoading(true);
     try {
       // Try to fetch from the API
-      const response = await fetch(API_URL);
+      const response = await axios(API_URL);
       
       // Check if response is ok
       if (!response.ok) {
@@ -33,7 +33,6 @@ const Order = () => {
       setOrders(data);
       setError(null);
     } catch (err) {
-      console.error('Error fetching orders:', err);
       setError('Failed to load your orders. Please try again later.');
       
       // Use mock data in development or when API fails
@@ -51,7 +50,6 @@ const Order = () => {
    */
   const handleReorder = (orderId) => {
     // In a real application, this would add all items from the order to the cart
-    console.log(`Reordering order #${orderId}`);
     alert(`Items from order #${orderId} have been added to your cart.`);
   };
 
@@ -62,7 +60,6 @@ const Order = () => {
    */
   const handleTrackOrder = (orderId, trackingNumber) => {
     // In a real application, this would redirect to a tracking page
-    console.log(`Tracking order #${orderId} with tracking number ${trackingNumber}`);
     alert(`Tracking information for order #${orderId}: Tracking Number - ${trackingNumber}`);
   };
 
@@ -72,7 +69,6 @@ const Order = () => {
    */
   const handleOpenSupport = (orderId) => {
     // In a real application, this would open a support chat or form
-    console.log(`Opening support for order #${orderId}`);
     alert(`Support request initiated for order #${orderId}`);
   };
 

@@ -11,8 +11,8 @@ body {
     width: 100%;
 }
 
-.manage-addresses-content h2 {
-    font-size: 2.5rem;
+.manage-addresses-content address-content-header {
+  font-size: 2.5rem;
   font-weight: 700;
   text-align: center;
   color: #000000;
@@ -21,11 +21,12 @@ body {
 
 .manage-addresses-container {
     display: flex; /* Places AccountNavigation and content side-by-side */
-    gap: 0px; /* Space between navigation and content */
-    padding: 20px; /* Padding around the entire addresses section */
-    max-width: auto; /* Optional: constrain width */
-    margin-left: 0;
-    font-family: sans-serif; /* Basic font */
+  gap: 0px; /* Space between navigation and content */
+  padding: 20px; /* Padding around the entire addresses section */
+  width: 100%; /* Full width of the parent */
+  max-width: 2000px; /* Optional: constrain width */
+  margin-left: 0;
+  font-family: sans-serif; /* Basic font */
   }
 /* --- Header and General Styles (Keep as is) --- */
 .default-checkbox-container {
@@ -103,10 +104,8 @@ body {
     border-radius: 4px;
     font-size: 1em;
     box-sizing: border-box;
-    width: 70%; /* ADDED: Limit the maximum width of the input box */
+    width: 70%; /* Limit the maximum width of the input box */
     margin-bottom: 0;
-    /* Optional: If input doesn't align left within its column */
-    /* justify-self: start; */
 }
 
 /* Specific handling for the checkbox row */
@@ -163,14 +162,11 @@ body {
 .form-actions button[type="button"],
 .form-actions #cancel-btn {
      /* Adjust vertical and horizontal padding */
-    font-size: 1em; /* Adjust the font size */
-    /* Optional: Set a fixed width */
-    /* width: 100px; */
+    font-size: 1em;
     background-color: #000000;
     margin-left: 40px;
     color: white;
 }
-
 
 
 /* ----- END: UPDATED FORM STYLES ----- */

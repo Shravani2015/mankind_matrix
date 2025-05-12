@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
-import './payments.css';
+import './Payments.css';
 import { CreditCard, Wallet, Gift } from 'lucide-react';
 import AccountNavigation from './AccountNavigation'; // Import the shared navigation component
-import styles from './ProfilePage.module.css'; // Import shared styles
 import withLayout from '../../layouts/HOC/withLayout';
 
 const PaymentMethods = ({ onPaymentMethodChange }) => {
@@ -33,8 +32,8 @@ const PaymentMethods = ({ onPaymentMethodChange }) => {
                 <CreditCard size={24} />
               </div>
               <div className="payment-option-details">
-                <h4>Credit Card</h4>
-                <p>Pay securely with your credit card</p>
+                <h4 className='payment-mode'>Credit Card</h4>
+                <p className='payment-caption'>Pay securely with your credit card</p>
               </div>
               <div className="payment-option-select">
                 <input 

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import './edit-profile.css';
+import './Edit-Profile.css';
+import axios from 'axios';
 import AccountNavigation from './AccountNavigation'; // Import the AccountNavigation component
 import withLayout from '../../layouts/HOC/withLayout';
 
@@ -20,7 +21,7 @@ function EditProfile() {
     // Fetch profile data (replace with your actual API call)
     const fetchProfile = async () => {
       try {
-        const response = await fetch('/api/profile', { // Replace with your actual API endpoint for fetching
+        const response = await axios('/api/profile', { // Replace with your actual API endpoint for fetching
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -35,7 +36,6 @@ function EditProfile() {
         const data = await response.json();
         setProfile({ ...data, password: '********' }); // Add password placeholder
       } catch (error) {
-        console.error('Error fetching profile:', error);
         setMessage({ type: 'error', text: 'Failed to load profile information.' });
         // Optionally set a default profile in case of an error
         setProfile({
@@ -94,7 +94,7 @@ function EditProfile() {
     }
 
     try {
-      const response = await fetch('/api/profile', { // Replace with your actual API endpoint for updating
+      const response = await axios('/api/profile', { // Replace with your actual API endpoint for updating
         method: 'PUT', // Or 'POST', depending on your API
         headers: {
           'Content-Type': 'application/json',
@@ -126,7 +126,6 @@ function EditProfile() {
       }, 3000);
 
     } catch (error) {
-      console.error('Error updating profile:', error);
       setMessage({
         type: 'error',
         text: 'Error while updating your profile.',
