@@ -8,7 +8,7 @@ const ProductCard = ({ product }) => {
   const [showNotification, setShowNotification] = useState(false);
 
   const viewProductDetails = (id) => {
-    window.location.href = `/products/${id}`;
+    window.location.href = `/product/${id}`;
   };
 
   const handleAddToCart = (product) => {
