@@ -11,12 +11,14 @@ const ProductView = () => {
   const [product, setProduct] = useState(null);
   const [notFound, setNotFound] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const [quantity, setQuantity] = useState(1);
   const { id } = useParams();
   const { addToCart } = useCart();
 
   useEffect(() => {
     setLoading(true);
+    setError(null);
     getProductById(id)
       .then(data => {
         setProduct(data);
@@ -27,7 +29,7 @@ const ProductView = () => {
         if (error.response && error.response.status === 404) {
           setNotFound(true);
         } else {
-          console.error('Error fetching product:', error);
+          setError(error.message || 'Unknown error occurred');
         }
       });
   }, [id]);
@@ -67,11 +69,11 @@ const ProductView = () => {
     );
   }
 
-  if (!product) {
+  if (error || !product) {
     return (
       <div className="error-container">
         <h2>Error Loading Product</h2>
-        <p>There was an error loading the product details. Please try again later.</p>
+        <p>{error || 'There was an error loading the product details. Please try again later.'}</p>
         <a href="/products">Back to Products</a>
       </div>
     );

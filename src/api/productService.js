@@ -1,5 +1,8 @@
 import axios from 'axios';
-import BASE_URL from './config';
+import { IS_DEV_MODE, API_TIMEOUT, getAxiosConfig } from './config';
+
+// Configure axios defaults
+axios.defaults.timeout = API_TIMEOUT;
 
 // Mocked products data for development
 const mockProducts = [
@@ -44,8 +47,7 @@ const mockProducts = [
 // Production API calls
 export const getAllProducts = async (page = 0, size = 10) => {
   try {
-    // For development, return mock data
-    if (process.env.NODE_ENV === 'development') {
+    if (IS_DEV_MODE) {
       // Simulate network delay
       await new Promise(resolve => setTimeout(resolve, 500));
       const start = page * size;
@@ -62,7 +64,9 @@ export const getAllProducts = async (page = 0, size = 10) => {
     }
     
     // For production, call the actual API
-    const res = await axios.get(`${BASE_URL}/products?page=${page}&size=${size}`);
+    const res = await axios.get(`/products`, getAxiosConfig({
+      params: { page, size }
+    }));
     return res.data;
   } catch (error) {
     console.error('Error fetching products:', error);
@@ -72,10 +76,10 @@ export const getAllProducts = async (page = 0, size = 10) => {
 
 export const getProductById = async (id) => {
   try {
-    // For development, return mock data
-    if (process.env.NODE_ENV === 'development') {
+    if (IS_DEV_MODE) {
       // Simulate network delay
       await new Promise(resolve => setTimeout(resolve, 800));
+      
       const product = mockProducts.find(p => p.id.toString() === id.toString());
       
       if (!product) {
@@ -89,11 +93,11 @@ export const getProductById = async (id) => {
     }
     
     // For production, call the actual API
-    const res = await axios.get(`${BASE_URL}/products/${id}`, {
+    const res = await axios.get(`/products/${id}`, getAxiosConfig({
       headers: {
         'Cache-Control': 'no-cache',
       }
-    });
+    }));
     return res.data;
   } catch (error) {
     console.error('Error fetching product details:', error);
