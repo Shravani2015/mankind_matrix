@@ -27,12 +27,22 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  min-height: 400px;
+  overflow: hidden;
 }
 
 .product-image {
+  width: 450px;
   max-width: 100%;
   height: auto;
   border-radius: 4px;
+  object-fit: contain;
+  max-height: 500px;
+  transition: transform 0.3s ease;
+}
+
+.product-image:hover {
+  transform: scale(1.05);
 }
 
 .product-info {
