@@ -12,6 +12,7 @@ import PaymentMethods from '../features/profile/Payments.jsx';
 import Help from '../features/profile/Help.jsx';
 import CartPage from '../features/cart/CartPage.jsx';
 import ProductPage from '../features/products/ProductPage.jsx';
+import ReturnRequest from '../features/profile/ReturnRequest.jsx';
 
 const AppRouter = () => {
     
@@ -27,6 +28,7 @@ const AppRouter = () => {
         <Route path="/orders" element={<OrderManager />} />
         <Route path="/edit-profile" element={<EditProfile />} />
         <Route path="/payments" element={<PaymentMethods/>} />
+        <Route path="/return-request" element={<ReturnRequest />} />
         <Route path="/help" element={<Help />} />
         <Route path='cart' element={<CartPage></CartPage>}></Route>
         <Route path='product/:id' element={<ProductPage></ProductPage>}></Route>
