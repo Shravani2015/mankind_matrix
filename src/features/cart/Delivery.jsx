@@ -1,56 +1,113 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Calendar, Clock, Truck, Check, User, MapPin, ShoppingBag } from 'lucide-react';
 import withLayout from '../../layouts/HOC/withLayout';
 import './Delivery.css';
-
-// Sample delivery options data - in a real app, this would come from your backend
-const deliveryOptions = {
-  standard: {
-    title: "Standard Delivery",
-    price: 0,
-    icon: <Truck className="text-gray-500" />,
-    deliveryDays: [
-      { date: "May 15, 2025", day: "Thursday", slots: ["Morning", "Afternoon"] },
-      { date: "May 16, 2025", day: "Friday", slots: ["Morning", "Afternoon", "Evening"] },
-      { date: "May 17, 2025", day: "Saturday", slots: ["Morning", "Afternoon"] },
-    ]
-  },
-  express: {
-    title: "Express Delivery",
-    price: 9.99,
-    icon: <Clock className="text-blue-500" />,
-    deliveryDays: [
-      { date: "May 13, 2025", day: "Tuesday", slots: ["Afternoon", "Evening"] },
-      { date: "May 14, 2025", day: "Wednesday", slots: ["Morning", "Afternoon", "Evening"] },
-    ]
-  }
-};
-
-// Sample cart items - in a real app, this would come from your cart state or API
-const cartItems = [
-  { id: 1, name: "Wireless Earbuds", price: 89.99, quantity: 1, image: "/api/placeholder/80/80" },
-  { id: 2, name: "Smart Watch", price: 199.99, quantity: 1, image: "/api/placeholder/80/80" },
-  { id: 3, name: "Portable Charger", price: 29.99, quantity: 2, image: "/api/placeholder/80/80" }
-];
+import { useCart } from '../../context/CartContext'; // Import the useCart hook
 
 const DeliveryPage = () => {
+  const { cart } = useCart(); // Use the useCart hook to access cart state
   const [deliveryType, setDeliveryType] = useState("standard");
   const [selectedDate, setSelectedDate] = useState(null);
   const [selectedTimeSlot, setSelectedTimeSlot] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
-  
-  // Calculate cart totals
-  const subtotal = cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-  const deliveryFee = deliveryOptions[deliveryType].price;
-  const total = subtotal + deliveryFee;
+  const [deliveryOptions, setDeliveryOptions] = useState({});
+  const navigate = useNavigate();
+
+  const taxRate = 0.10;
+  const taxAmount = cart.total * taxRate;
+  const deliveryFee = deliveryOptions[deliveryType]?.price || 0;
+  const total = cart.total + taxAmount + deliveryFee;
+
+  // Default delivery options if API fails
+  const getDefaultDeliveryOptions = () => {
+    const currentDate = new Date();
+    
+    // Standard delivery dates (starting from current date + 5 days / 120 hours)
+    const standardDeliveryDays = [];
+    for (let i = 0; i < 3; i++) {
+      const deliveryDate = new Date(currentDate);
+      deliveryDate.setHours(currentDate.getHours() + 120 + (i * 24)); // 5 days + additional days
+      
+      const formattedDate = deliveryDate.toLocaleDateString('en-US', { 
+        month: 'short', 
+        day: 'numeric', 
+        year: 'numeric' 
+      });
+      
+      const dayName = deliveryDate.toLocaleDateString('en-US', { weekday: 'long' });
+      
+      standardDeliveryDays.push({
+        date: formattedDate,
+        day: dayName,
+        slots: ["8AM - 12PM", "12PM - 4PM", "4PM - 9PM"]
+      });
+    }
+    
+    // Express delivery dates (starting from current date + 3 days / 72 hours)
+    const expressDeliveryDays = [];
+    for (let i = 0; i < 3; i++) {
+      const deliveryDate = new Date(currentDate);
+      deliveryDate.setHours(currentDate.getHours() + 72 + (i * 24)); // 3 days + additional days
+      
+      const formattedDate = deliveryDate.toLocaleDateString('en-US', { 
+        month: 'short', 
+        day: 'numeric', 
+        year: 'numeric' 
+      });
+      
+      const dayName = deliveryDate.toLocaleDateString('en-US', { weekday: 'long' });
+      
+      expressDeliveryDays.push({
+        date: formattedDate,
+        day: dayName,
+        slots: ["10AM - 2PM", "2PM - 6PM", "6PM - 9PM"]
+      });
+    }
+    
+    return {
+      standard: {
+        title: "Standard Delivery",
+        price: 0,
+        icon: <Truck className="text-gray-500" />,
+        deliveryDays: standardDeliveryDays
+      },
+      express: {
+        title: "Express Delivery",
+        price: 9.99,
+        icon: <Clock className="text-blue-500" />,
+        deliveryDays: expressDeliveryDays
+      }
+    };
+  };
+
+  // Try to fetch delivery options from API, fallback to default options
+  const fetchDeliveryOptions = async () => {
+    try {
+      // Attempt to fetch from API
+      const response = await fetch('/api/delivery-options');
+      
+      // Check if the request was successful
+      if (!response.ok) {
+        throw new Error('API returned error status: ' + response.status);
+      }
+      
+      const data = await response.json();
+      setDeliveryOptions(data);
+    } catch (error) {
+      console.log('API fetch failed, using default delivery options:', error);
+      // If API call fails, use the default options
+      const defaultOptions = getDefaultDeliveryOptions();
+      setDeliveryOptions(defaultOptions);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   useEffect(() => {
-    // Simulate loading data
-    const timer = setTimeout(() => {
-      setIsLoading(false);
-    }, 800);
-    
+    // Fetch delivery options (from API or generate them)
+    fetchDeliveryOptions();
+
     // Initialize page functionality
     if (window.app && typeof window.app.initDeliveryPage === 'function') {
       window.app.initDeliveryPage();
@@ -60,10 +117,15 @@ const DeliveryPage = () => {
     }
 
     return () => {
-      clearTimeout(timer);
       // Cleanup if needed
     };
   }, []);
+
+  // Reset selected date and time slot when delivery type changes
+  useEffect(() => {
+    setSelectedDate(null);
+    setSelectedTimeSlot(null);
+  }, [deliveryType]);
 
   // Fallback function if vanilla JS isn't available
   const initBoxInteractions = () => {
@@ -79,18 +141,19 @@ const DeliveryPage = () => {
       alert("Please select both a delivery date and time slot");
       return;
     }
-    
-    // In a real app, you would save the selection to your state/context and navigate
+
+    // In a real app, you would likely save delivery options along with the cart data
     console.log({
       deliveryType,
       selectedDate,
       selectedTimeSlot,
-      cost: deliveryOptions[deliveryType].price
+      cost: deliveryOptions[deliveryType].price,
+      cartItems: cart.items
     });
-    
-    alert("Proceeding to checkout with your selected delivery options!");
-    // Navigate to checkout page
-    // history.push('/checkout');
+
+    navigate('/payments');
+    // Optionally, you could pass delivery details to the payments page via state
+    // navigate('/payments', { state: { deliveryDetails: { deliveryType, selectedDate, selectedTimeSlot, cost: deliveryOptions[deliveryType].price } } });
   };
 
   if (isLoading) {
@@ -127,9 +190,9 @@ const DeliveryPage = () => {
           <div className="step-label">Confirmation</div>
         </div>
       </div>
-      
+
       <h1>Select Delivery Options</h1>
-      
+
       <div className="delivery-content">
         <div className="delivery-main">
           {/* Delivery Address Summary */}
@@ -156,7 +219,7 @@ const DeliveryPage = () => {
           <div className="delivery-section delivery-options">
             <h2>Delivery Method</h2>
             <div className="delivery-types">
-              <div 
+              <div
                 className={`delivery-option ${deliveryType === "standard" ? "selected" : ""}`}
                 onClick={() => setDeliveryType("standard")}
               >
@@ -165,7 +228,7 @@ const DeliveryPage = () => {
                 </div>
                 <div className="option-details">
                   <h3>Standard Delivery</h3>
-                  <p>Delivery within 3-5 days</p>
+                  <p>Delivery within 5 days</p>
                 </div>
                 <div className="option-price">
                   <span>Free</span>
@@ -176,8 +239,8 @@ const DeliveryPage = () => {
                   </div>
                 )}
               </div>
-              
-              <div 
+
+              <div
                 className={`delivery-option ${deliveryType === "express" ? "selected" : ""}`}
                 onClick={() => setDeliveryType("express")}
               >
@@ -186,10 +249,10 @@ const DeliveryPage = () => {
                 </div>
                 <div className="option-details">
                   <h3>Express Delivery</h3>
-                  <p>Get it within 1-2 days</p>
+                  <p>Get it within 3 days</p>
                 </div>
                 <div className="option-price">
-                  <span>${deliveryOptions.express.price.toFixed(2)}</span>
+                  <span>${deliveryOptions.express?.price.toFixed(2)}</span>
                 </div>
                 {deliveryType === "express" && (
                   <div className="option-check">
@@ -199,13 +262,13 @@ const DeliveryPage = () => {
               </div>
             </div>
           </div>
-          
+
           {/* Date Selection */}
           <div className="delivery-section delivery-dates">
             <h2>Delivery Date</h2>
             <div className="date-options">
-              {deliveryOptions[deliveryType].deliveryDays.map((dayOption, index) => (
-                <div 
+              {deliveryOptions[deliveryType]?.deliveryDays.map((dayOption, index) => (
+                <div
                   key={index}
                   className={`date-option ${selectedDate === dayOption.date ? "selected" : ""}`}
                   onClick={() => {
@@ -229,16 +292,16 @@ const DeliveryPage = () => {
               ))}
             </div>
           </div>
-          
+
           {/* Time Slot Selection */}
           {selectedDate && (
             <div className="delivery-section delivery-slots">
               <h2>Time Slot</h2>
               <div className="time-options">
-                {deliveryOptions[deliveryType].deliveryDays
+                {deliveryOptions[deliveryType]?.deliveryDays
                   .find(day => day.date === selectedDate)
                   ?.slots.map((slot, index) => (
-                    <div 
+                    <div
                       key={index}
                       className={`time-option ${selectedTimeSlot === slot ? "selected" : ""}`}
                       onClick={() => setSelectedTimeSlot(slot)}
@@ -255,33 +318,41 @@ const DeliveryPage = () => {
             </div>
           )}
         </div>
-        
+
         <div className="delivery-sidebar">
           {/* Order Summary */}
           <div className="order-summary">
             <h2>Order Summary</h2>
-            
-            <div className="cart-items">
-              {cartItems.map(item => (
+
+            <div className="cart-order">
+              {cart.items.map(item => (
                 <div key={item.id} className="cart-item">
                   <div className="item-image">
-                    <img src={item.image} alt={item.name} />
+                    {item.imageUrl ? (
+                      <img src={item.imageUrl} alt={item.name} />
+                    ) : (
+                      <div className="placeholder-image">{item.name.charAt(0)}</div>
+                    )}
                   </div>
                   <div className="item-details">
                     <h3 className="item-name">{item.name}</h3>
                     <div className="item-meta">
                       <p className="item-quantity">Qty: {item.quantity}</p>
-                      <p className="item-price">${item.price.toFixed(2)}</p>
+                      <p className="item-price">{item.price}</p>
                     </div>
                   </div>
                 </div>
               ))}
             </div>
-            
+
             <div className="summary-details">
               <div className="summary-row">
                 <span>Subtotal</span>
-                <span>${subtotal.toFixed(2)}</span>
+                <span>${cart.total.toFixed(2)}</span>
+              </div>
+              <div className="summary-row">
+                <span>Tax (10%)</span>
+                <span>${taxAmount.toFixed(2)}</span>
               </div>
               <div className="summary-row">
                 <span>Shipping</span>
@@ -292,12 +363,12 @@ const DeliveryPage = () => {
                 <span>${total.toFixed(2)}</span>
               </div>
             </div>
-            
+
             <div className="delivery-info">
               {selectedDate && selectedTimeSlot ? (
                 <div className="selected-delivery">
                   <h3>Selected Delivery:</h3>
-                  <p>{deliveryOptions[deliveryType].title}</p>
+                  <p>{deliveryOptions[deliveryType]?.title}</p>
                   <p>{selectedDate} - {selectedTimeSlot}</p>
                 </div>
               ) : (
@@ -306,15 +377,15 @@ const DeliveryPage = () => {
                 </div>
               )}
             </div>
-            
-            <button 
+
+            <button
               className="continue-button"
               onClick={handleContinue}
               disabled={!selectedDate || !selectedTimeSlot}
             >
               Continue to Payment
             </button>
-            
+
             <Link to="/cart" className="back-link">
               Return to Cart
             </Link>

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { useCart } from '../../context/CartContext';
 import { FaTrash, FaPlus, FaMinus } from 'react-icons/fa';
 import withLayout from '../../layouts/HOC/withLayout';
@@ -144,10 +145,9 @@ const CartPage = () => {
               <span>Total:</span>
               <span>${(cart.total + cart.total * 0.1).toFixed(2)}</span>
             </div>
-            
-            <button className="checkout-btn">
-              Proceed to Checkout
-            </button>
+            <Link to="/delivery" className="checkout-btn">
+            Proceed to Delivery
+            </Link>
           </div>
         </div>
       </div>
