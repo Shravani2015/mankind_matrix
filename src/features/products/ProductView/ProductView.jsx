@@ -79,15 +79,12 @@ const ProductView = () => {
     );
   }
 
-  // For demo purposes, use a placeholder image if no image URL is provided
+  // For demo purposes, a placeholder image if no image URL is provided
   const imageUrl = product.imageUrl || `https://via.placeholder.com/500x400.png?text=${product.name}`;
 
   return (
     <div className="product-page-container">
       <ToastContainer />
-      <div className="back-button-container top-back-button">
-        <a href="/products" className="back-button">← Back to Products</a>
-      </div>
       
       <div className="product-details">
         <div className="product-image-container">
