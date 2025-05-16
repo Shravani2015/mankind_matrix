@@ -177,7 +177,7 @@ const ManageAddressesPage = () => {
           </div>
         ) : (
           <div id="address-form-container">
-            <h3>{editIndex >= 0 ? 'Edit Address' : 'Add New Address'}</h3>
+            <h3 style={{marginLeft: '120px'}}>{editIndex >= 0 ? 'Edit Address' : 'Add New Address'}</h3>    
             <form id="address-form" onSubmit={saveAddress}>
               <label htmlFor="name">Name:</label>
               <input type="text" id="name" name="name" value={currentAddress.name} onChange={handleInputChange} required />
@@ -191,7 +191,7 @@ const ManageAddressesPage = () => {
               <label htmlFor="state">State:</label>
               <input type="text" id="state" name="state" value={currentAddress.state} onChange={handleInputChange} required />
               
-              <label htmlFor="zipcode">Zip Code:</label>
+              <label htmlFor="zipcode">ZipCode:</label>
               <input type="text" id="zipcode" name="zipcode" value={currentAddress.zipcode} onChange={handleInputChange} required />
               
               <label htmlFor="country">Country:</label>

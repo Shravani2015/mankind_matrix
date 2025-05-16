@@ -1,8 +1,14 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { FaBell, FaCheck, FaTrash, FaCheckDouble, FaRegClock } from 'react-icons/fa';
+import { FaBell, FaCheck, FaTrash, FaCheckDouble, FaRegClock, FaCog, FaArrowLeft } from 'react-icons/fa';
 
 function NotificationsUI() {
   const [isOpen, setIsOpen] = useState(false);
+  const [showSettings, setShowSettings] = useState(false);
+  const [notificationSettings, setNotificationSettings] = useState({
+    orderNotifications: true,
+    offerNotifications: true,
+    productNotifications: true
+  });
   const [notifications, setNotifications] = useState([
     { 
       id: 1, 
@@ -93,6 +99,14 @@ function NotificationsUI() {
     }
   };
   
+  // Toggle notification settings
+  const toggleNotificationSetting = (setting) => {
+    setNotificationSettings(prev => ({
+      ...prev,
+      [setting]: !prev[setting]
+    }));
+  };
+  
   return (
     <div className="notification-wrapper" ref={notificationPanelRef}>
       {/* Notification Bell Icon */}
@@ -133,16 +147,24 @@ function NotificationsUI() {
             alignItems: 'center',
             backgroundColor: '#f9f9f9'
           }}>
-            <h3 style={{ 
-              margin: 0, 
-              fontSize: '1.1rem', 
-              color: '#333',
-              fontWeight: '600' 
-            }}>
-              Notifications
-            </h3>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+              {showSettings && (
+                <FaArrowLeft
+                  style={{ cursor: 'pointer', fontSize: '1rem' }}
+                  onClick={() => setShowSettings(false)}
+                />
+              )}
+              <h3 style={{ 
+                margin: 0, 
+                fontSize: '1.1rem', 
+                color: '#333',
+                fontWeight: '600' 
+              }}>
+                {showSettings ? 'Notification Settings' : 'Notifications'}
+              </h3>
+            </div>
             
-            {unreadCount > 0 && (
+            {!showSettings && unreadCount > 0 && (
               <button 
                 onClick={markAllAsRead}
                 style={{
@@ -165,7 +187,7 @@ function NotificationsUI() {
             )}
           </div>
           
-          {/* Notifications List */}
+          {/* Content Area */}
           <div style={{ 
             overflowY: 'auto',
             flex: '1',
@@ -173,58 +195,80 @@ function NotificationsUI() {
             padding: '0',
             backgroundColor: '#fff'
           }}>
-            {notifications.length > 0 ? (
-              <ul style={{ 
-                listStyle: 'none', 
-                padding: 0, 
-                margin: 0 
-              }}>
-                {notifications.map((notification) => (
-                  <li 
-                    key={notification.id}
-                    style={{
-                      padding: '15px 20px',
-                      borderBottom: '1px solid #f0f0f0',
-                      background: notification.read ? '#fff' : getNotificationTypeColor(notification.type),
-                      cursor: 'default',
-                      color: '#333',
-                      position: 'relative',
-                      transition: 'all 0.2s ease'
-                    }}
-                  >
-                    <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                      <div style={{ flex: 1 }}>
-                        <p style={{ 
-                          margin: '0 0 6px 0', 
-                          fontSize: '0.9rem',
-                          fontWeight: notification.read ? '400' : '500'
-                        }}>
-                          {notification.message}
-                        </p>
+            {!showSettings ? (
+              // Notifications List
+              notifications.length > 0 ? (
+                <ul style={{ 
+                  listStyle: 'none', 
+                  padding: 0, 
+                  margin: 0 
+                }}>
+                  {notifications.map((notification) => (
+                    <li 
+                      key={notification.id}
+                      style={{
+                        padding: '15px 20px',
+                        borderBottom: '1px solid #f0f0f0',
+                        background: notification.read ? '#fff' : getNotificationTypeColor(notification.type),
+                        cursor: 'default',
+                        color: '#333',
+                        position: 'relative',
+                        transition: 'all 0.2s ease'
+                      }}
+                    >
+                      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                        <div style={{ flex: 1 }}>
+                          <p style={{ 
+                            margin: '0 0 6px 0', 
+                            fontSize: '0.9rem',
+                            fontWeight: notification.read ? '400' : '500'
+                          }}>
+                            {notification.message}
+                          </p>
+                          <div style={{ 
+                            display: 'flex', 
+                            alignItems: 'center', 
+                            gap: '8px',
+                            fontSize: '0.75rem',
+                            color: '#888'
+                          }}>
+                            <FaRegClock style={{ fontSize: '0.7rem' }} />
+                            <span>{notification.time}</span>
+                          </div>
+                        </div>
+                        
+                        {/* Action buttons */}
                         <div style={{ 
-                          display: 'flex', 
+                          display: 'flex',
                           alignItems: 'center', 
                           gap: '8px',
-                          fontSize: '0.75rem',
-                          color: '#888'
+                          marginLeft: '10px'
                         }}>
-                          <FaRegClock style={{ fontSize: '0.7rem' }} />
-                          <span>{notification.time}</span>
-                        </div>
-                      </div>
-                      
-                      {/* Action buttons */}
-                      <div style={{ 
-                        display: 'flex',
-                        alignItems: 'center', 
-                        gap: '8px',
-                        marginLeft: '10px'
-                      }}>
-                        {!notification.read && (
+                          {!notification.read && (
+                            <button
+                              onClick={(e) => markAsRead(notification.id, e)}
+                              style={{
+                                background: 'rgba(76, 175, 80, 0.1)',
+                                border: 'none',
+                                borderRadius: '50%',
+                                width: '28px',
+                                height: '28px',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                cursor: 'pointer',
+                                color: '#4CAF50',
+                                fontSize: '0.7rem'
+                              }}
+                              title="Mark as read"
+                            >
+                              <FaCheck />
+                            </button>
+                          )}
                           <button
-                            onClick={(e) => markAsRead(notification.id, e)}
+                            onClick={(e) => removeNotification(notification.id, e)}
                             style={{
-                              background: 'rgba(76, 175, 80, 0.1)',
+                              background: 'rgba(244, 67, 54, 0.1)',
                               border: 'none',
                               borderRadius: '50%',
                               width: '28px',
@@ -233,45 +277,158 @@ function NotificationsUI() {
                               alignItems: 'center',
                               justifyContent: 'center',
                               cursor: 'pointer',
-                              color: '#4CAF50',
+                              color: '#F44336',
                               fontSize: '0.7rem'
                             }}
-                            title="Mark as read"
+                            title="Remove notification"
                           >
-                            <FaCheck />
+                            <FaTrash />
                           </button>
-                        )}
-                        <button
-                          onClick={(e) => removeNotification(notification.id, e)}
-                          style={{
-                            background: 'rgba(244, 67, 54, 0.1)',
-                            border: 'none',
-                            borderRadius: '50%',
-                            width: '28px',
-                            height: '28px',
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            cursor: 'pointer',
-                            color: '#F44336',
-                            fontSize: '0.7rem'
-                          }}
-                          title="Remove notification"
-                        >
-                          <FaTrash />
-                        </button>
+                        </div>
                       </div>
-                    </div>
-                  </li>
-                ))}
-              </ul>
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                <div style={{ 
+                  padding: '30px 20px', 
+                  textAlign: 'center', 
+                  color: '#888' 
+                }}>
+                  <p style={{ margin: 0 }}>No notifications</p>
+                </div>
+              )
             ) : (
-              <div style={{ 
-                padding: '30px 20px', 
-                textAlign: 'center', 
-                color: '#888' 
-              }}>
-                <p style={{ margin: 0 }}>No notifications</p>
+              // Settings Panel
+              <div style={{ padding: '20px' }}>
+                {/* Order Notifications Toggle */}
+                <div style={{
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+                  padding: '12px 0',
+                  borderBottom: '1px solid #f0f0f0'
+                }}>
+                  <div>
+                    <h4 style={{ margin: '0 0 4px 0', fontSize: '0.9rem', color: '#000000' }}>Order Notifications</h4>
+                    <p style={{ margin: 0, fontSize: '0.8rem', color: '#666' }}>Updates about your orders</p>
+                  </div>
+                  <label className="toggle-switch" style={{ position: 'relative' }}>
+                    <input
+                      type="checkbox"
+                      checked={notificationSettings.orderNotifications}
+                      onChange={() => toggleNotificationSetting('orderNotifications')}
+                      style={{ display: 'none' }}
+                    />
+                    <span style={{
+                      width: '44px',
+                      height: '24px',
+                      background: notificationSettings.orderNotifications ? '#000000' : '#ccc',
+                      display: 'block',
+                      borderRadius: '12px',
+                      position: 'relative',
+                      cursor: 'pointer',
+                      transition: 'background 0.3s',
+                    }}>
+                      <span style={{
+                        width: '20px',
+                        height: '20px',
+                        background: '#fff',
+                        borderRadius: '50%',
+                        position: 'absolute',
+                        top: '2px',
+                        left: notificationSettings.orderNotifications ? '22px' : '2px',
+                        transition: 'left 0.3s',
+                      }}/>
+                    </span>
+                  </label>
+                </div>
+
+                {/* Offer Notifications Toggle */}
+                <div style={{
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+                  padding: '12px 0',
+                  borderBottom: '1px solid #f0f0f0'
+                }}>
+                  <div>
+                    <h4 style={{ margin: '0 0 4px 0', fontSize: '0.9rem', color: '#000000' }}>Offer Notifications</h4>
+                    <p style={{ margin: 0, fontSize: '0.8rem', color: '#666' }}>Deals and promotional offers</p>
+                  </div>
+                  <label className="toggle-switch" style={{ position: 'relative' }}>
+                    <input
+                      type="checkbox"
+                      checked={notificationSettings.offerNotifications}
+                      onChange={() => toggleNotificationSetting('offerNotifications')}
+                      style={{ display: 'none' }}
+                    />
+                    <span style={{
+                      width: '44px',
+                      height: '24px',
+                      background: notificationSettings.offerNotifications ? '#000000' : '#ccc',
+                      display: 'block',
+                      borderRadius: '12px',
+                      position: 'relative',
+                      cursor: 'pointer',
+                      transition: 'background 0.3s',
+                    }}>
+                      <span style={{
+                        width: '20px',
+                        height: '20px',
+                        background: '#fff',
+                        borderRadius: '50%',
+                        position: 'absolute',
+                        top: '2px',
+                        left: notificationSettings.offerNotifications ? '22px' : '2px',
+                        transition: 'left 0.3s',
+                      }}/>
+                    </span>
+                  </label>
+                </div>
+
+                {/* Product Notifications Toggle */}
+                <div style={{
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+                  padding: '12px 0',
+                  borderBottom: '1px solid #f0f0f0'
+                }}>
+                  <div>
+                    <h4 style={{ margin: '0 0 4px 0', fontSize: '0.9rem', color: '#000000' }}>Product Notifications</h4>
+                    <p style={{ margin: 0, fontSize: '0.8rem', color: '#666' }}>New products and updates</p>
+                  </div>
+                  <label className="toggle-switch" style={{ position: 'relative' }}>
+                    <input
+                      type="checkbox"
+                      checked={notificationSettings.productNotifications}
+                      onChange={() => toggleNotificationSetting('productNotifications')}
+                      style={{ display: 'none' }}
+                    />
+                    <span style={{
+                      width: '44px',
+                      height: '24px',
+                      background: notificationSettings.productNotifications ? '#000000' : '#ccc',
+                      display: 'block',
+                      borderRadius: '12px',
+                      position: 'relative',
+                      cursor: 'pointer',
+                      transition: 'background 0.3s',
+                    }}>
+                      <span style={{
+                        width: '20px',
+                        height: '20px',
+                        background: '#fff',
+                        borderRadius: '50%',
+                        position: 'absolute',
+                        top: '2px',
+                        left: notificationSettings.productNotifications ? '22px' : '2px',
+                        transition: 'left 0.3s',
+                      }}/>
+                    </span>
+                  </label>
+                </div>
               </div>
             )}
           </div>
@@ -285,16 +442,29 @@ function NotificationsUI() {
             fontSize: '0.8rem',
             color: '#888'
           }}>
-            <a 
-              href="#settings" 
+            <button 
+              onClick={() => setShowSettings(!showSettings)}
               style={{ 
-                color: '#e91e63', 
-                textDecoration: 'none',
-                fontWeight: '500' 
+                background: 'transparent',
+                border: 'none',
+                color: '#e91e63',
+                cursor: 'pointer',
+                fontSize: '0.8rem',
+                fontWeight: '500',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '6px',
+                margin: '0 auto'
               }}
             >
-              Notification Settings
-            </a>
+              {!showSettings ? (
+                <>
+                  <FaCog /> Notification Settings
+                </>
+              ) : (
+                'Back to Notifications'
+              )}
+            </button>
           </div>
         </div>
       )}

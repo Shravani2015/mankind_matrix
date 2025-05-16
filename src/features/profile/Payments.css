@@ -6,7 +6,7 @@
 
 .payment-methods-container {
   display: flex;
-  gap: 100px;
+  gap: 50px;
   padding: 20px;
   width: 100%;
   max-width: 2000px;
@@ -16,8 +16,10 @@
 
 
 .payment-methods-content {
-  flex-direction: column;
-  width: 50%;
+  flex: 1;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 30px;
 }
 
 .payment-methods-content page-title {

@@ -12,6 +12,12 @@ const ReturnRequest = () => {
   const [additionalInfo, setAdditionalInfo] = useState('');
   const [returnMethod, setReturnMethod] = useState('refund');
   const [formErrors, setFormErrors] = useState({});
+  const [showSettings, setShowSettings] = useState(false);
+  const [notificationSettings, setNotificationSettings] = useState({
+    orderNotifications: true,
+    offerNotifications: true,
+    productNotifications: true
+  });
 
   // Return reason options
   const reasonOptions = [
@@ -152,6 +158,13 @@ const ReturnRequest = () => {
    */
   const handleCancel = () => {
     navigate('/orders');
+  };
+
+  const toggleNotificationSetting = (setting) => {
+    setNotificationSettings(prev => ({
+      ...prev,
+      [setting]: !prev[setting]
+    }));
   };
 
   // Show loading or redirect if no order data
