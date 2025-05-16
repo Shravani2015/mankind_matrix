@@ -23,12 +23,5 @@ export const getAxiosConfig = (additionalConfig = {}) => ({
   ...additionalConfig
 });
 
-// Debug info
-console.log('API Config Initialized:');
-console.log('- ENV_MODE:', ENV_MODE);
-console.log('- IS_DEV_MODE:', IS_DEV_MODE);
-console.log('- BASE_URL:', BASE_URL);
-console.log('- API_TIMEOUT:', API_TIMEOUT);
-
 // Default export for backward compatibility
 export default BASE_URL;

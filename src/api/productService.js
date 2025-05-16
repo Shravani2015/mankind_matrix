@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { IS_DEV_MODE, API_TIMEOUT, getAxiosConfig } from './config';
+import { APIError } from '../utils/errors';
 
 // Configure axios defaults
 axios.defaults.timeout = API_TIMEOUT;
@@ -256,14 +257,10 @@ const mockProducts = [
   }
 ];
 
-
-
-
 // Production API calls
 export const getAllProducts = async (page = 0, size = 10) => {
   try {
     if (IS_DEV_MODE) {
-      // Simulate network delay
       await new Promise(resolve => setTimeout(resolve, 500));
       const start = page * size;
       const end = start + size;
@@ -278,58 +275,49 @@ export const getAllProducts = async (page = 0, size = 10) => {
       };
     }
     
-    // For production, call the actual API
     const res = await axios.get(`/products`, getAxiosConfig({
       params: { page, size }
     }));
     return res.data;
   } catch (error) {
-    console.error('Error fetching products:', error);
-    throw error;
+    throw APIError.fromAxiosError(error, '/products');
   }
 };
 
-// Get featured products
 export const getFeaturedProducts = async () => {
   try {
     if (IS_DEV_MODE) {
-      // Simulate network delay
       await new Promise(resolve => setTimeout(resolve, 300));
-      
-      // Filter featured products
       const featuredProducts = mockProducts.filter(product => product.featured);
-      
       return featuredProducts;
     }
     
-    // For production, call the actual API
     const res = await axios.get(`/products/featured`, getAxiosConfig());
     return res.data;
   } catch (error) {
-    console.error('Error fetching featured products:', error);
-    throw error;
+    throw APIError.fromAxiosError(error, '/products/featured');
   }
 };
 
 export const getProductById = async (id) => {
   try {
     if (IS_DEV_MODE) {
-      // Simulate network delay
       await new Promise(resolve => setTimeout(resolve, 800));
       
       const product = mockProducts.find(p => p.id.toString() === id.toString());
       
       if (!product) {
-        // Simulate a 404 response
-        const error = new Error('Product not found');
-        error.response = { status: 404 };
-        throw error;
+        throw new APIError(
+          404,
+          'Product not found',
+          `/products/${id}`,
+          `No product found with id: ${id}`
+        );
       }
       
       return product;
     }
     
-    // For production, call the actual API
     const res = await axios.get(`/products/${id}`, getAxiosConfig({
       headers: {
         'Cache-Control': 'no-cache',
@@ -337,8 +325,7 @@ export const getProductById = async (id) => {
     }));
     return res.data;
   } catch (error) {
-    console.error('Error fetching product details:', error);
-    throw error;
+    throw APIError.fromAxiosError(error, `/products/${id}`);
   }
 };
   
