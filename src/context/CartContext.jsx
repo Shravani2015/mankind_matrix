@@ -19,17 +19,18 @@ const cartReducer = (state, action) => {
       );
 
       let updatedItems;
+      const productQuantity = action.payload.quantity || 1;
       
       if (existingItemIndex >= 0) {
-        // Item exists, update quantity
+        // Item exists, update quantity with the provided quantity
         updatedItems = [...state.items];
         updatedItems[existingItemIndex] = {
           ...updatedItems[existingItemIndex],
-          quantity: updatedItems[existingItemIndex].quantity + 1
+          quantity: updatedItems[existingItemIndex].quantity + productQuantity
         };
       } else {
-        // Add new item with quantity 1
-        updatedItems = [...state.items, { ...action.payload, quantity: 1 }];
+        // Add new item with provided quantity or default to 1
+        updatedItems = [...state.items, { ...action.payload, quantity: productQuantity }];
       }
       
       // Calculate new item count

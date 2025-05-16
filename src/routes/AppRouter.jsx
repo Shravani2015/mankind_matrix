@@ -11,7 +11,7 @@ import OrderManager from '../features/profile/Orders.jsx';
 import PaymentMethods from '../features/profile/Payments.jsx';
 import Help from '../features/profile/Help.jsx';
 import CartPage from '../features/cart/CartPage.jsx';
-import ProductPage from '../features/products/ProductPage.jsx';
+import ProductView from '../features/products/ProductView/ProductView.jsx';
 
 const AppRouter = () => {
     
@@ -30,7 +30,7 @@ const AppRouter = () => {
         <Route path="/help" element={<Help />} />
         <Route path='cart' element={<CartPage></CartPage>}></Route>
         <Route path="AI" element={<CartPage></CartPage>}></Route>
-        <Route path='product/:id' element={<ProductPage></ProductPage>}></Route>
+        <Route path='product/:id' element={<ProductView></ProductView>}></Route>
       </Routes>
     </Router>
   );
