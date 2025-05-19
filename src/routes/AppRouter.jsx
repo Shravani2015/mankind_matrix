@@ -13,7 +13,7 @@ import Help from '../features/profile/Help.jsx';
 import CartPage from '../features/cart/CartPage.jsx';
 import ProductPage from '../features/products/ProductPage.jsx';
 import ReturnRequest from '../features/profile/ReturnRequest.jsx';
-
+import AdminPage from '../features/admin/AdminPage.jsx';
 const AppRouter = () => {
     
   return (
@@ -21,6 +21,7 @@ const AppRouter = () => {
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path='products' element={<Product></Product>}></Route>
+        <Route path='admin' element={<AdminPage></AdminPage>}></Route>
         <Route path='login' element={<Login></Login>}></Route>
         <Route path="/profile" element={<ProfilePage />} />
         <Route path="/account" element={<AccountPage />} /> {/* Added new Account route */}
