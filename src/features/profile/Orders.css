@@ -2,13 +2,12 @@
 
 /* Account page layout */
 .account-page {
-  display: flex; /* Places AccountNavigation and content side-by-side */
-  gap: 0px; /* Space between navigation and content */
-  padding: 20px; /* Padding around the entire addresses section */
-  width: 100%; /* Full width of the parent */
-  max-width: 2000px; /* Optional: constrain width */
-  margin-left: 0;
-  font-family: sans-serif; /* Basic font */
+  display: flex;
+    gap: 50px;
+    padding: 20px;
+    width: 100%;
+    max-width: 2000px;
+    margin: 0 auto;
 }
 
 .nav-list {
@@ -53,10 +52,10 @@
 
 /* Main container */
 .orders-container {
-  max-width: 900px;
-  width: 100%;
-  padding-bottom: 40px;
-  margin: 0 auto;
+  flex: 1;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 30px;
 }
 
 .orders-container h2 {
