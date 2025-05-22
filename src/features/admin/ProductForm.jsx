@@ -125,16 +125,32 @@ const ProductForm = ({ product, onSubmit, onCancel }) => {
           </Grid>
 
           <Grid item xs={12}>
-            <FormControl fullWidth required>
-              <InputLabel>Category</InputLabel>
+            <FormControl fullWidth required sx={{ 
+              minHeight: '56px',
+              '& .MuiInputLabel-root': {
+                fontSize: '1.1rem',
+                fontWeight: 500
+              },
+              '& .MuiOutlinedInput-root': {
+                fontSize: '1.1rem',
+                '& fieldset': {
+                  borderWidth: 2
+                }
+              },
+              '& .MuiSelect-select': {
+                paddingRight: '320px !important'
+              }
+            }}>
+              <InputLabel id="category-label">Category</InputLabel>
               <Select
                 name="category"
                 value={formData.category}
                 onChange={handleChange}
                 label="Category"
+                labelId="category-label"
               >
                 {CATEGORIES.map((category) => (
-                  <MenuItem key={category} value={category}>
+                  <MenuItem key={category} value={category} sx={{ fontSize: '1.1rem' }}>
                     {category}
                   </MenuItem>
                 ))}
