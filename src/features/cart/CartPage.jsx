@@ -145,9 +145,9 @@ const CartPage = () => {
               <span>Total:</span>
               <span>${(cart.total + cart.total * 0.1).toFixed(2)}</span>
             </div>
-            <Link to="/delivery" className="checkout-btn">
-            Proceed to Delivery
-            </Link>
+            <button className="checkout-btn">
+              Proceed to Checkout
+            </button>
           </div>
         </div>
       </div>

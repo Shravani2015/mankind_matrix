@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import Reclearct, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Calendar, Clock, Truck, Check, MapPin, CreditCard, ArrowLeft } from 'lucide-react';
 import withLayout from '../../layouts/HOC/withLayout';
