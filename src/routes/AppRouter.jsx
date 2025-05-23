@@ -6,6 +6,7 @@ import Login from '../features/auth/login.jsx';
 import CartPage from '../features/cart/CartPage.jsx';
 import ProductPage from '../features/products/ProductPage.jsx';
 import Delivery from '../features/cart/Delivery.jsx';
+import PaymentPage from '../features/cart/Payments.jsx';
 
 const AppRouter = () => {
     
@@ -17,6 +18,7 @@ const AppRouter = () => {
         <Route path='login' element={<Login></Login>}></Route>
         <Route path='Delivery' element={<Delivery></Delivery>}></Route>
         <Route path='cart' element={<CartPage></CartPage>}></Route>
+        <Route path='payments' element={<PaymentPage></PaymentPage>}></Route>
         <Route path='product/:id' element={<ProductPage></ProductPage>}></Route>
       </Routes>
     </Router>
